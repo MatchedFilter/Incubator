@@ -1,0 +1,2 @@
+# Incubator Code
+This repo contains code of Incubator controller unit. Code is written in C++ language. It is written for STM32F103C8T6 microcontroller. However, it can be adapted to any microcontroller by implementing dependency methods.
