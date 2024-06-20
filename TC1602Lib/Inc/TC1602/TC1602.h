@@ -3,17 +3,16 @@
 #include <cinttypes>
 namespace GUI
 {
-    enum EnumTC1602Color : uint8_t
-    {
-        TC1602_COLOR_BLACK_OVER_WHITE,
-        TC1602_COLOR_WHITE_OVER_BLACK
-    };
-
     enum EnumTC1602LineCount : uint8_t
     {
         TC1602_LINE_COUNT_1,
         TC1602_LINE_COUNT_2
-    };  
+    };
+
+    constexpr const uint8_t TC1602_CHAR_LOWER_I = 0x00;
+    constexpr const uint8_t TC1602_CHAR_LOWER_U = 0x01;
+    constexpr const uint8_t TC1602_CHAR_LOWER_O = 0x02;
+    constexpr const uint8_t TC1602_CHAR_DEGREE_SYMBOL = 0xDF;
 
     class TC1602
     {
@@ -22,10 +21,11 @@ namespace GUI
         ~TC1602() = default;
         void Initialize();
         void ClearScreen();
-        void ChangeColor(EnumTC1602Color tc1602Color);
         void Print(const char *format, ...);
+        void Print(uint8_t ch);
+        void DisplayOff();
+        void DisplayOn();
         void SetCursorToLine(EnumTC1602LineCount lineCount);
-
     };
 } // namespace GUI
 

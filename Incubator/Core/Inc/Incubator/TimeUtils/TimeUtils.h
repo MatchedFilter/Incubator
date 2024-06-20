@@ -4,7 +4,8 @@
 class TimeUtils
 {
 public:
-    static uint32_t GetTimestampInMilliseconds();
+    static int64_t GetTimestampInMilliseconds();
+    static void SetTimestampInMilliseconds(int64_t timestampInMilliseconds);
     static void SleepInMilliseconds(uint32_t timeInMilliseconds);
 };
 #endif // _TIMEUTILS_H_

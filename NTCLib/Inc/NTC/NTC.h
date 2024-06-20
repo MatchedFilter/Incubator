@@ -1,4 +1,4 @@
-#ifndef _SENSORNTC_H_
+#ifndef _SENSORS_NTC_H_
 #define _SENSORS_NTC_H_
 #include <cinttypes>
 namespace Sensors

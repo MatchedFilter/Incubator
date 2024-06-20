@@ -1,8 +1,13 @@
 #ifndef _INCUBATOR_H_
 #define _INCUBATOR_H_
 #include "DHT11/DHT11.h"
-#include "TC1602/TC1602.h"
 #include "NTC/NTC.h"
+#include "Joystick/Joystick.h"
+#include "Storage/Storage.h"
+#include "GUI/UIComponent.h"
+#include "TimerTasks/IncubatorSecondPeriodicTimerTaskHandler.h"
+#include "TimerTasks/IncubatorTemperatureReadingTimerTaskHandler.h"
+#include "TimerTasks/IncubatorStorageUpdatingTimerTaskHandler.h"
 
 class Incubator
 {
@@ -15,10 +20,16 @@ public:
 private:
     Sensors::DHT11 m_Dht11;
     Sensors::NTC m_NtcSensor;
-    GUI::TC1602 m_Tc1602;
+    Sensors::Joystick m_Joystick;
+    GUI::UIComponent m_UIComponent;
+    IncubatorData m_IncubatorData;
 
-    static const int32_t DHT11_MAX_FAILURE_COUNT = 16;
-    int32_t m_Dht11FailureCount;
+    IncubatorSecondPeriodicTimerTaskHandler m_IncubatorSecondPeriodicTimerTaskHandler;
+    IncubatorTemperatureReadingTimerTaskHandler m_IncubatorTemperatureReadingTimerTaskHandler;
+    IncubatorStorageUpdatingTimerTaskHandler m_IncubatorStorageUpdatingTimerTaskHandler;
+
+private:
+    void GetJoystickInfo();
 };
 
 

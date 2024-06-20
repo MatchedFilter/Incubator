@@ -32,9 +32,6 @@ constexpr int32_t PARITY_START_BIT = 32;
 constexpr int32_t PARITY_END_BIT = 40;
 
 
-extern void LOG_DEBUG(const char *format, ...);
-
-
 inline bool WaitForGivenOutputToChange(int outputValue, uint32_t minimumTimeDurationInMicroseconds, uint32_t maximumTimeDurationInMicroseconds, uint32_t &durationInMicroseconds)
 {
     bool bResult = false;
@@ -64,10 +61,6 @@ inline bool WaitForGivenOutputToChange(int outputValue, uint32_t minimumTimeDura
 {
     uint32_t tempDuration;
     bool bResult = WaitForGivenOutputToChange(outputValue, minimumTimeDurationInMicroseconds, maximumTimeDurationInMicroseconds, tempDuration);
-    if (!bResult)
-    {
-    	LOG_DEBUG("duration took: %d", tempDuration);
-    }
     return bResult;
         
 }
@@ -82,7 +75,6 @@ inline bool InitializeForReading()
     if (!WaitForGivenOutputToChange(OUTPUT_HIGH, MIN_WAIT_TIME_FOR_OUTPUT_IN_MICROSECONDS, MAX_WAIT_TIME_FOR_OUTPUT_IN_MICROSECONDS))
     {
         bResult = false;
-        LOG_DEBUG("Unable to connect sensor");
     }
     if (bResult)
     {
@@ -97,7 +89,6 @@ inline bool InitializeForReading()
         if (!WaitForGivenOutputToChange(OUTPUT_HIGH, INITIALIZATION_MIN_OUTPUT_TIME_IN_MICROSECONDS, INITIALIZATION_MAX_OUTPUT_TIME_IN_MICROSECONDS))
         {
             bResult = false;
-            LOG_DEBUG("Third Error");
         }
     }
     return bResult;

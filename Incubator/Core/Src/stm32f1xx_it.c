@@ -42,7 +42,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-volatile uint32_t g_TimestampInMilliseconds = 0;
+volatile int64_t g_TimestampInMilliseconds = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
