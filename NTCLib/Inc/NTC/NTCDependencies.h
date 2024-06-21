@@ -10,12 +10,12 @@ extern "C"
 /**
  * @brief start adc for reading
 */
-extern void _start_adc_for_ntc();
+extern void _start_adc_for_ntc(uint8_t ntc_id);
 
 /**
  * @brief reads adc value
 */
-extern uint32_t _get_adc_value_for_ntc();
+extern uint32_t _get_adc_value_for_ntc(uint8_t ntc_id);
 
 #ifdef _cplusplus
 }

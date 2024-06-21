@@ -139,12 +139,12 @@ void _set_rw_pin_output(uint8_t outputValue)
 	HAL_GPIO_WritePin(TC1602_RW_GPIO_Port, TC1602_RW_Pin, (GPIO_PinState)outputValue);
 }
 
-void _start_adc_for_ntc()
+void _start_adc_for_ntc(uint8_t ntc_id)
 {
 	HAL_ADC_Start(&hadc1);
 }
 
-uint32_t _get_adc_value_for_ntc()
+uint32_t _get_adc_value_for_ntc(uint8_t ntc_id)
 {
 	return HAL_ADC_GetValue(&hadc1);
 }

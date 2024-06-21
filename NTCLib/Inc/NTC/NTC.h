@@ -9,13 +9,14 @@ namespace Sensors
         /**
          * @brief defaults for 100k 28 - 40 C
         */
-        NTC(double coeffA = 0.8022799015e-3, double coeffB = 2.033227644e-4, double coeffC = 1.382036989e-7,
+        NTC(uint8_t ntcID = 0, double coeffA = 0.8022799015e-3, double coeffB = 2.033227644e-4, double coeffC = 1.382036989e-7,
             int32_t pullDownResistor = 10000);
         ~NTC() = default;
         void Initialize();
         double CalculateTemperatureInCelcius();
     
     private:
+        const uint8_t m_NtcID;
         const double m_CoeffA;
         const double m_CoeffB;
         const double m_CoeffC;
