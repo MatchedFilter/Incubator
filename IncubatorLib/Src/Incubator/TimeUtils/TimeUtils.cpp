@@ -3,7 +3,7 @@
 extern "C"
 {
     int64_t _get_timestamp_in_milliseconds();
-    void _sleep_in_millisecond(int32_t timeInMillisecond);
+    void _delay_in_milliseconds(int32_t timeInMillisecond);
     void _set_timestamp_in_milliseconds(int64_t timestampInMilliseconds);
 
 }
@@ -21,5 +21,5 @@ void TimeUtils::SetTimestampInMilliseconds(int64_t timestampInMilliseconds)
 
 void TimeUtils::SleepInMilliseconds(uint32_t timeInMilliseconds)
 {
-    _sleep_in_millisecond(timeInMilliseconds);
+    _delay_in_milliseconds(timeInMilliseconds);
 }

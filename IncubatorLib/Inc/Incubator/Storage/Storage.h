@@ -11,7 +11,7 @@ struct HumidityData
     HumidityData() : m_HumidityStartPercentage { 50 }, m_HumidityEndPercentage { 55 }, m_HumidityDesiredInMilliDegrees { 53 } { }
     bool Serialize(uint8_t *buffer, uint16_t size) const;
     bool Deserialize(const uint8_t *buffer, uint16_t size);
-    static constexpr const uint8_t BUFFER_SIZE = sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t);;
+    static constexpr const uint8_t BUFFER_SIZE = sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t);
     ~HumidityData() = default;
 };
 

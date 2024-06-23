@@ -99,11 +99,6 @@ void _set_timestamp_in_milliseconds(int64_t timestampInMilliseconds)
 	g_TimestampInMilliseconds = timestampInMilliseconds;
 }
 
-void _sleep_in_millisecond(int32_t timeInMillisecond)
-{
-	HAL_Delay(timeInMillisecond);
-}
-
 void _set_d4_pin_output(uint8_t outputValue)
 {
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, (GPIO_PinState)outputValue);

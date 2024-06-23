@@ -13,7 +13,7 @@ namespace Sensors
             int32_t pullDownResistor = 10000);
         ~NTC() = default;
         void Initialize();
-        double CalculateTemperatureInCelcius();
+        bool CalculateTemperatureInCelcius(double &temperatureInCelcius);
     
     private:
         const uint8_t m_NtcID;

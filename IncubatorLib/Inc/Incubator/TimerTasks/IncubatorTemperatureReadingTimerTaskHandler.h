@@ -19,6 +19,8 @@ private:
     double m_TemperatureWindow[MOVING_WINDOW_SIZE];
     uint8_t m_CurrentWindowCounter;
     bool m_bIsInitialized;
+    static constexpr const uint8_t MAX_ALLOWED_INVALID_READING = 3;
+    uint8_t m_InvalidReadingCounter;
 
 private:
     void MeasureTemperature();

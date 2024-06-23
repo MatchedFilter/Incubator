@@ -30,7 +30,7 @@ void TC1602ErrorWindowState::Update(IncubatorData &incubatorData)
             LOG_DEBUG("HATA: Bellek");
             m_Tc1602->SetCursorToLine(TC1602_LINE_COUNT_2);
             SendSensorErrorString();
-            LOG_DEBUG("sensor hatasi");
+            LOG_DEBUG("sensör hatası");
         }
     }
     else if (incubatorData.m_HumiditySensorStatus == SENSOR_STATUS_ERROR)
@@ -44,7 +44,7 @@ void TC1602ErrorWindowState::Update(IncubatorData &incubatorData)
             LOG_DEBUG("HATA: Nem");
             m_Tc1602->SetCursorToLine(TC1602_LINE_COUNT_2);
             SendSensorErrorString();
-            LOG_DEBUG("sensor hatasi");
+            LOG_DEBUG("sensör hatası");
         }
     }
     else if (incubatorData.m_TemperatureSensorStatus == SENSOR_STATUS_ERROR )
@@ -59,10 +59,10 @@ void TC1602ErrorWindowState::Update(IncubatorData &incubatorData)
             m_Tc1602->Print("cakl");
             m_Tc1602->Print(TC1602_CHAR_LOWER_I);
             m_Tc1602->Print("k");
-            LOG_DEBUG("HATA: Sicaklik");
+            LOG_DEBUG("HATA: Sıcaklık");
             m_Tc1602->SetCursorToLine(TC1602_LINE_COUNT_2);
             SendSensorErrorString();
-            LOG_DEBUG("sensor hatasi");
+            LOG_DEBUG("sensör hatası");
         }
     }
     else

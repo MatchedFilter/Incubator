@@ -6,7 +6,8 @@ IncubatorTemperatureReadingTimerTaskHandler::IncubatorTemperatureReadingTimerTas
     m_IncubatorData { incubatorData },
     m_TemperatureWindow { 0 },
     m_CurrentWindowCounter { 0 },
-    m_bIsInitialized { false }
+    m_bIsInitialized { false },
+    m_InvalidReadingCounter { 0 }
 {
 }
 
@@ -29,23 +30,36 @@ double IncubatorTemperatureReadingTimerTaskHandler::GetAvarageTemperature()
 
 void IncubatorTemperatureReadingTimerTaskHandler::OnTimeout(TaskID taskId)
 {
-    m_TemperatureWindow[m_CurrentWindowCounter] = m_NtcSensor.CalculateTemperatureInCelcius();
-    if (!m_bIsInitialized)
+    double temperature;
+    if (m_NtcSensor.CalculateTemperatureInCelcius(temperature))
     {
-        m_CurrentWindowCounter++;
-        m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_INITIALIZATION;
-        if (m_CurrentWindowCounter == MOVING_WINDOW_SIZE)
+        m_InvalidReadingCounter = 0;
+        m_TemperatureWindow[m_CurrentWindowCounter] = temperature;
+        if (!m_bIsInitialized)
         {
-            m_CurrentWindowCounter = 0;
-            m_bIsInitialized = true;
+            m_CurrentWindowCounter++;
+            m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_INITIALIZATION;
+            if (m_CurrentWindowCounter == MOVING_WINDOW_SIZE)
+            {
+                m_CurrentWindowCounter = 0;
+                m_bIsInitialized = true;
+                m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_NO_ERROR;
+                m_IncubatorData->m_TemperatureInMilliDegree = static_cast<int32_t>(GetAvarageTemperature() * 1000);
+            }
+        }
+        else
+        {
             m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_NO_ERROR;
             m_IncubatorData->m_TemperatureInMilliDegree = static_cast<int32_t>(GetAvarageTemperature() * 1000);
+            m_CurrentWindowCounter = (m_CurrentWindowCounter + 1) % MOVING_WINDOW_SIZE;
         }
     }
     else
     {
-        m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_NO_ERROR;
-        m_IncubatorData->m_TemperatureInMilliDegree = static_cast<int32_t>(GetAvarageTemperature() * 1000);
-        m_CurrentWindowCounter = (m_CurrentWindowCounter + 1) % MOVING_WINDOW_SIZE;
+        m_InvalidReadingCounter++;
+        if (m_InvalidReadingCounter > MAX_ALLOWED_INVALID_READING)
+        {
+            m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_ERROR;
+        }
     }
 }

@@ -18,13 +18,17 @@ void NTC::Initialize()
     _start_adc_for_ntc(m_NtcID);
 }
 
-double NTC::CalculateTemperatureInCelcius()
+bool NTC::CalculateTemperatureInCelcius(double &temperatureInCelcius)
 {
-    double temperature = 0.0;
     constexpr double KELVIN_TO_CELCIUS_CONSTANT = 273.15;
     static const int32_t TermistorConstant = 4095 * m_PullDownResistor;
+    bool bResult = false;
     uint32_t adcValue = _get_adc_value_for_ntc(m_NtcID);
-    const double temperatureCoeff = log(((TermistorConstant / adcValue) - m_PullDownResistor));
-    temperature = (1 / (m_CoeffA + (m_CoeffB + (m_CoeffC * temperatureCoeff * temperatureCoeff)) * temperatureCoeff)) - KELVIN_TO_CELCIUS_CONSTANT;
-    return temperature;
+    if (adcValue > 0 )
+    {
+        const double temperatureCoeff = log(((TermistorConstant / adcValue) - m_PullDownResistor));
+        temperatureInCelcius = (1 / (m_CoeffA + (m_CoeffB + (m_CoeffC * temperatureCoeff * temperatureCoeff)) * temperatureCoeff)) - KELVIN_TO_CELCIUS_CONSTANT;
+        bResult = true;
+    }
+    return bResult;
 }
