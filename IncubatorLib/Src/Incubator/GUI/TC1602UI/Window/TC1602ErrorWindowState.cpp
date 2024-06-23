@@ -16,7 +16,7 @@ void TC1602ErrorWindowState::SendSensorErrorString()
 }
 
 
-void TC1602ErrorWindowState::Update(IncubatorData &incubatorData)
+void TC1602ErrorWindowState::Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState)
 {
     m_NextWindowState = TC1602_WINDOW_STATE_ERROR_WINDOW;
     if (incubatorData.m_MemoryDeviceErrorState == ERROR_STATE_ERROR)

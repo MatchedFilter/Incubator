@@ -2,7 +2,7 @@
 
 using namespace ITS;
 
-static constexpr const char *TC1602Screen_FONT_PATH = "resources/fonts/Open_Sans/static/OpenSans-Light.ttf";
+static constexpr const char *TC1602Screen_FONT_PATH = "resources/fonts/Fira_Code/static/FiraCode-Regular.ttf";
 static constexpr const int32_t TC1602Screen_FONT_SIZE = 32;
 static constexpr const char *TC1602Screen_IMAGE_PATH = "resources/images/TC1602.png";
 
@@ -18,6 +18,7 @@ static constexpr const uint8_t TC1602_CHAR_LOWER_I = 0x00;
 static constexpr const uint8_t TC1602_CHAR_LOWER_U = 0x01;
 static constexpr const uint8_t TC1602_CHAR_LOWER_O = 0x02;
 static constexpr const uint8_t TC1602_CHAR_DEGREE_SYMBOL = 0xDF;
+static constexpr const uint8_t TC1602_CHAR_ARROW_SYMBOL = 0x7E;
 
 TC1602Screen::TC1602Screen() :
     m_Renderer { nullptr },
@@ -133,6 +134,11 @@ void TC1602Screen::SendData(uint8_t data)
 
     case TC1602_CHAR_DEGREE_SYMBOL:
         m_Lines[m_CursorCount] = (char16_t)0x00B0;
+        break;
+
+    case TC1602_CHAR_ARROW_SYMBOL:
+        // m_Lines[m_CursorCount] = (char16_t)0x2192;
+        m_Lines[m_CursorCount] = (char16_t)0x2192;
         break;
     
     default:

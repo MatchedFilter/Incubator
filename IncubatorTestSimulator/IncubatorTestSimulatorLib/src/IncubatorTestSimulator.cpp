@@ -111,12 +111,17 @@ void IncubatorTestSimulator::Initialize()
     }
 }
 
-void IncubatorTestSimulator::Run(SDL_Event &event)
+void IncubatorTestSimulator::HandleEvents(SDL_Event &event)
+{
+    m_JoystickButton.HandleEvents(event);
+}
+
+void IncubatorTestSimulator::Run()
 {
     SDL_SetRenderDrawColor(m_Renderer, 0x20, 0x20, 0x20, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(m_Renderer);
     m_TC1602Screen.Run();
-    m_JoystickButton.Run(event);
+    m_JoystickButton.Run();
     SDL_RenderPresent(m_Renderer);
 }
 

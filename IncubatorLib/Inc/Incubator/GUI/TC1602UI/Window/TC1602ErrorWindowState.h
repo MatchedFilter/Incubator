@@ -17,7 +17,7 @@ namespace GUI
     public:
         TC1602ErrorWindowState(TC1602 *tc1602);
         ~TC1602ErrorWindowState() = default;
-        virtual void Update(IncubatorData &incubatorData) override;
+        virtual void Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState) override;
         virtual void Refresh() override;
         virtual EnumTC1602WindowState GetNextWindowState() override;
 

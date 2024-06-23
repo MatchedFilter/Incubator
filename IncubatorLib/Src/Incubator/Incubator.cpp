@@ -57,7 +57,7 @@ void Incubator::Initialize()
 void Incubator::GetJoystickInfo()
 {
     constexpr int32_t JOYSTICK_UPPER_THRESHOLD = 2900;
-    constexpr int32_t JOYSTICK_LOWER_THRESHOLD = 100;
+    constexpr int32_t JOYSTICK_LOWER_THRESHOLD = 1100;
     Sensors::JoystickData joystickData = m_Joystick.GetJoystickValues();
     m_IncubatorData.m_bIsButtonClicked = false;
     if (joystickData.m_PressState == Sensors::JOYSTICK_PRESS_STATE_CLICKED)
@@ -105,6 +105,7 @@ void Incubator::GetJoystickInfo()
     else
     {
     }
+    // LOG_DEBUG("right: %d, up: %d, press: %d", joystickData.m_RightPosition, joystickData.m_UpPosition, joystickData.m_PressState);
     m_LastJoystickData.m_PressState = joystickData.m_PressState;
     m_LastJoystickData.m_RightPosition = joystickData.m_RightPosition;
     m_LastJoystickData.m_UpPosition = joystickData.m_UpPosition;

@@ -5,6 +5,8 @@
 #include "Window/TC1602ErrorWindowState.h"
 #include "Window/TC1602MainWindowState.h"
 #include "Window/TC1602MenuWindowState.h"
+#include "Window/TC1602TemperatureSetWindowState.h"
+#include "Window/TC1602ResetWindowState.h"
 #include "TimerTasks/TC1602RefreshingTimerTaskHandler.h"
 
 namespace GUI
@@ -26,9 +28,13 @@ namespace GUI
         TC1602ErrorWindowState m_TC1602ErrorWindowState;
         TC1602MainWindowState m_TC1602MainWindowState;
         TC1602MenuWindowState m_TC1602MenuWindowState;
+        TC1602TemperatureSetWindowState m_TC1602TemperatureSetWindowState;
+        TC1602ResetWindowState m_TC1602ResetWindowState;
 
         static constexpr const uint16_t TC1602_REFRESHING_TIME_IN_MILLISECOND = 3000;
         TC1602RefreshingTimerTaskHandler m_TC1602RefreshingTimerTaskHandler;
+
+        EnumTC1602WindowState m_PreviousState;
 
     private:
         bool IsThereAnyErrorInData(const IncubatorData &incubatorData);

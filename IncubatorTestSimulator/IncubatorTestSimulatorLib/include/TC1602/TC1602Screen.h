@@ -28,7 +28,7 @@ namespace ITS
         static constexpr const int32_t CURSOR_WIDTH = 35;
         static constexpr const int32_t ROW_WIDTH = 56;
         static constexpr const int32_t LINE_STRING_SIZE = LINE_SIZE * LINE_COUNT + sizeof('\0');
-        char16_t m_Lines[LINE_STRING_SIZE];
+        Uint16 m_Lines[LINE_STRING_SIZE];
 
     private:
         bool m_bIsDisplayOn;

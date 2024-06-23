@@ -24,7 +24,8 @@ namespace ITS
         uint8_t GetJoystickButtonState();
 
         void Initialize();
-        void Run(SDL_Event &event);
+        void HandleEvents(SDL_Event &event);
+        void Run();
     
     private:
         SDL_Window *m_Window;

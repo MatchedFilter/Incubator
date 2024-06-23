@@ -30,9 +30,12 @@ int main(int argc, char *argv[])
             {
                 s_bApplicationRunning = false;
             }
-            g_IncubatorTestSimulator.Run(event);
+            else
+            {
+                g_IncubatorTestSimulator.HandleEvents(event);
+            }
         }
-        // s_Incubator.Run();
+        g_IncubatorTestSimulator.Run();
     }
     incubatorThread.join();
     return 0;

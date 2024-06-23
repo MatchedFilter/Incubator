@@ -404,6 +404,7 @@ extern "C"
                 {
                 }
             }
+            break;
         case JOYSTICK_READING_STATE_UP_DOWN:
             {
                 if (bIsUpKeyPressed)

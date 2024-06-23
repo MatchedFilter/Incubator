@@ -22,7 +22,7 @@ public:
     uint8_t m_HumidityStart;
     uint8_t m_HumidityEnd;
     uint8_t m_HumidityDesired;
-    int32_t m_TemperatureInMilliDegree;
+    int32_t m_TemperatureInDeciDegree;
     int32_t m_TemperatureStart;
     int32_t m_TemperatureEnd;
     int32_t m_TemperatureDesired;
@@ -48,7 +48,7 @@ public:
         m_HumidityInPercentage = 0;
         m_HumidityStart = 0;
         m_HumidityEnd = 0;
-        m_TemperatureInMilliDegree = 0;
+        m_TemperatureInDeciDegree = 0;
         m_TemperatureStart = 0;
         m_TemperatureEnd = 0;
         m_StartTimestampInSeconds = 0;

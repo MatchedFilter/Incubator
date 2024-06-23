@@ -44,13 +44,13 @@ void IncubatorTemperatureReadingTimerTaskHandler::OnTimeout(TaskID taskId)
                 m_CurrentWindowCounter = 0;
                 m_bIsInitialized = true;
                 m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_NO_ERROR;
-                m_IncubatorData->m_TemperatureInMilliDegree = static_cast<int32_t>(GetAvarageTemperature() * 1000);
+                m_IncubatorData->m_TemperatureInDeciDegree = static_cast<int32_t>(GetAvarageTemperature() * 10);
             }
         }
         else
         {
             m_IncubatorData->m_TemperatureSensorStatus = SENSOR_STATUS_NO_ERROR;
-            m_IncubatorData->m_TemperatureInMilliDegree = static_cast<int32_t>(GetAvarageTemperature() * 1000);
+            m_IncubatorData->m_TemperatureInDeciDegree = static_cast<int32_t>(GetAvarageTemperature() * 10);
             m_CurrentWindowCounter = (m_CurrentWindowCounter + 1) % MOVING_WINDOW_SIZE;
         }
     }

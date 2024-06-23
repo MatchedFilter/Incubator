@@ -14,7 +14,8 @@ namespace ITS
         bool Initialize(SDL_Renderer *renderer, int32_t xPos, int32_t yPos);
         void GetJoystickData(bool &upKeyPressed, bool &downKeyPressed, bool &rightKeyPressed, bool &leftKeyPressed);
         uint8_t GetJoystickButtonState();
-        void Run(SDL_Event &event);
+        void HandleEvents(const SDL_Event &event);
+        void Run();
 
     private:
         SDL_Renderer *m_Renderer;
@@ -31,9 +32,6 @@ namespace ITS
         bool m_RightKeyPressed;
         bool m_LeftKeyPressed;
         Sensors::EnumJoystickPressState m_JoystickPressState;
-
-    private:
-        void HandleEvents(const SDL_Event &event);
 
 
     };

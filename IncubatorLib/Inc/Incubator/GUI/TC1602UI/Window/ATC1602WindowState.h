@@ -13,12 +13,12 @@ namespace GUI
             m_Tc1602 { tc1602 },
             m_NextWindowState { m_CurrentWindowState } {}
         virtual ~ATC1602WindowState() = default;
-        virtual void Update(IncubatorData &incubatorData) = 0;
+        virtual void Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState) = 0;
         virtual void Refresh() = 0;
         virtual EnumTC1602WindowState GetNextWindowState() = 0;
+        const EnumTC1602WindowState m_CurrentWindowState;
 
     protected:
-        const EnumTC1602WindowState m_CurrentWindowState;
         TC1602 *m_Tc1602;
         EnumTC1602WindowState m_NextWindowState;
 

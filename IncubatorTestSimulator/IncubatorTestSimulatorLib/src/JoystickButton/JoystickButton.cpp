@@ -193,11 +193,9 @@ void JoystickButton::HandleEvents(const SDL_Event &event)
     }
 }
 
-
-void JoystickButton::Run(SDL_Event &event)
+void JoystickButton::Run()
 {
     SDL_Rect *joystickImageRect = &m_JoystickRect;
-    HandleEvents(event);
     if (m_JoystickPressState == Sensors::JOYSTICK_PRESS_STATE_PRESSED)
     {
         joystickImageRect = &m_JoystickPressedRect;

@@ -13,6 +13,7 @@ namespace GUI
     constexpr const uint8_t TC1602_CHAR_LOWER_U = 0x01;
     constexpr const uint8_t TC1602_CHAR_LOWER_O = 0x02;
     constexpr const uint8_t TC1602_CHAR_DEGREE_SYMBOL = 0xDF;
+    constexpr const uint8_t TC1602_CHAR_ARROW_SYMBOL = 0x7E;
 
     class TC1602
     {

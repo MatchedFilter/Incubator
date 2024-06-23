@@ -7,23 +7,21 @@ struct HumidityData
 {
     uint8_t m_HumidityStartPercentage;
     uint8_t m_HumidityEndPercentage;
-    uint8_t m_HumidityDesiredInMilliDegrees;
-    HumidityData() : m_HumidityStartPercentage { 50 }, m_HumidityEndPercentage { 55 }, m_HumidityDesiredInMilliDegrees { 53 } { }
+    HumidityData() : m_HumidityStartPercentage { 50 }, m_HumidityEndPercentage { 55 } { }
     bool Serialize(uint8_t *buffer, uint16_t size) const;
     bool Deserialize(const uint8_t *buffer, uint16_t size);
-    static constexpr const uint8_t BUFFER_SIZE = sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t);
+    static constexpr const uint8_t BUFFER_SIZE = sizeof(uint8_t) + sizeof(uint8_t);
     ~HumidityData() = default;
 };
 
 struct TemperatureData
 {
-    int32_t m_TemperatureStartInMilliDegrees;
-    int32_t m_TemperatureEndInMilliDegrees;
-    int32_t m_TemperatureDesiredInMilliDegrees;
-    TemperatureData() : m_TemperatureStartInMilliDegrees { 36000 }, m_TemperatureEndInMilliDegrees { 38000 }, m_TemperatureDesiredInMilliDegrees {37500} { }
+    int32_t m_TemperatureStartInDeciDegrees;
+    int32_t m_TemperatureEndInDeciDegrees;
+    TemperatureData() : m_TemperatureStartInDeciDegrees { 365 }, m_TemperatureEndInDeciDegrees { 385 } { }
     bool Serialize(uint8_t *buffer, uint16_t size) const;
     bool Deserialize(const uint8_t *buffer, uint16_t size);
-    static constexpr const uint8_t BUFFER_SIZE = sizeof(int32_t) + sizeof(int32_t) + sizeof(int32_t);
+    static constexpr const uint8_t BUFFER_SIZE = sizeof(int32_t) + sizeof(int32_t);
     ~TemperatureData() = default;
 };
 

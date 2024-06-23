@@ -41,13 +41,13 @@ void TC1602MainWindowState::PrintLine(uint8_t lineCount)
             }
             else
             {
-    		    m_Tc1602->Print("%02d.%02d", m_IncubatorData->m_TemperatureInMilliDegree / 1000, (m_IncubatorData->m_TemperatureInMilliDegree / 10) % 100);
-    		    LOG_DEBUG_WITHOUT_ENDL("%02d.%02d", m_IncubatorData->m_TemperatureInMilliDegree / 1000, (m_IncubatorData->m_TemperatureInMilliDegree / 10) % 100);
+    		    m_Tc1602->Print("%02d.%01d", m_IncubatorData->m_TemperatureInDeciDegree / 10, m_IncubatorData->m_TemperatureInDeciDegree % 10);
+    		    LOG_DEBUG_WITHOUT_ENDL("%02d.%01d", m_IncubatorData->m_TemperatureInDeciDegree / 10, m_IncubatorData->m_TemperatureInDeciDegree % 10);
             }
-        	m_Tc1602->Print(" / %02d.%02d ", m_IncubatorData->m_TemperatureDesired / 1000, (m_IncubatorData->m_TemperatureDesired / 10) % 100);
+        	m_Tc1602->Print(" / %02d.%01d ", m_IncubatorData->m_TemperatureDesired / 10, m_IncubatorData->m_TemperatureDesired % 10);
         	m_Tc1602->Print(TC1602_CHAR_DEGREE_SYMBOL);
 			m_Tc1602->Print("C");
-    		LOG_DEBUG_RAW(" / %02d.%02d ºC\n", m_IncubatorData->m_TemperatureDesired / 1000, (m_IncubatorData->m_TemperatureDesired / 10) % 100);
+    		LOG_DEBUG_RAW(" / %02d.%01d ºC\n", m_IncubatorData->m_TemperatureDesired / 10, m_IncubatorData->m_TemperatureDesired % 10);
 		}
         break;
 
@@ -93,12 +93,16 @@ void TC1602MainWindowState::DetermineNextState(const IncubatorData &incubatorDat
     }
 }
 
-void TC1602MainWindowState::Update(IncubatorData &incubatorData)
+void TC1602MainWindowState::Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState)
 {
     m_IncubatorData = &incubatorData;
     m_NextWindowState = TC1602_WINDOW_STATE_MAIN_WINDOW;
     if (m_bIsInitial)
     {
+        if (previousState == TC1602_WINDOW_STATE_RESET)
+        {
+
+        }
         Refresh();
         m_bIsInitial = false;
     }

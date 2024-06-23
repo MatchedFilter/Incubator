@@ -66,7 +66,6 @@ bool HumidityData::Serialize(uint8_t *buffer, uint16_t size) const
     {
         buffer[0] = m_HumidityStartPercentage;
         buffer[1] = m_HumidityEndPercentage;
-        buffer[2] = m_HumidityDesiredInMilliDegrees;
     }
     return bResult;
 }
@@ -78,7 +77,6 @@ bool HumidityData::Deserialize(const uint8_t *buffer, uint16_t size)
     {
         m_HumidityStartPercentage = buffer[0];
         m_HumidityEndPercentage = buffer[1];
-        m_HumidityDesiredInMilliDegrees = buffer[2];
     }
     return bResult;
 }
@@ -89,11 +87,9 @@ bool TemperatureData::Serialize(uint8_t *buffer, uint16_t size) const
     if (bResult)
     {
         uint8_t writtenSize = 0;
-        memcpy(&buffer[writtenSize], &m_TemperatureStartInMilliDegrees, sizeof(m_TemperatureStartInMilliDegrees));
-        writtenSize += sizeof(m_TemperatureStartInMilliDegrees);
-        memcpy(&buffer[writtenSize], &m_TemperatureEndInMilliDegrees, sizeof(m_TemperatureEndInMilliDegrees));
-        writtenSize += sizeof(m_TemperatureEndInMilliDegrees);
-        memcpy(&buffer[writtenSize], &m_TemperatureDesiredInMilliDegrees, sizeof(m_TemperatureDesiredInMilliDegrees));
+        memcpy(&buffer[writtenSize], &m_TemperatureStartInDeciDegrees, sizeof(m_TemperatureStartInDeciDegrees));
+        writtenSize += sizeof(m_TemperatureStartInDeciDegrees);
+        memcpy(&buffer[writtenSize], &m_TemperatureEndInDeciDegrees, sizeof(m_TemperatureEndInDeciDegrees));
     }
     return bResult;
 }
@@ -104,11 +100,9 @@ bool TemperatureData::Deserialize(const uint8_t *buffer, uint16_t size)
     if (bResult)
     {
         uint8_t readSize = 0;
-        memcpy(&m_TemperatureStartInMilliDegrees, &buffer[readSize], sizeof(m_TemperatureStartInMilliDegrees));
-        readSize += sizeof(m_TemperatureStartInMilliDegrees);
-        memcpy(&m_TemperatureEndInMilliDegrees, &buffer[readSize], sizeof(m_TemperatureEndInMilliDegrees));
-        readSize += sizeof(m_TemperatureEndInMilliDegrees);
-        memcpy(&m_TemperatureDesiredInMilliDegrees, &buffer[readSize], sizeof(m_TemperatureDesiredInMilliDegrees));
+        memcpy(&m_TemperatureStartInDeciDegrees, &buffer[readSize], sizeof(m_TemperatureStartInDeciDegrees));
+        readSize += sizeof(m_TemperatureStartInDeciDegrees);
+        memcpy(&m_TemperatureEndInDeciDegrees, &buffer[readSize], sizeof(m_TemperatureEndInDeciDegrees));
     }
     return bResult;
 }
@@ -152,7 +146,7 @@ void Storage::Initialize()
     uint8_t buffer[StorageStatusData::BUFFER_SIZE] = { 0 };
     if (s_Eeprom24C.Read(INITIAL_PAGE, PAGE_OFFSET, buffer, (uint16_t) sizeof(buffer)))
     {
-        TimeUtils::SleepInMilliseconds(1);
+        TimeUtils::SleepInMilliseconds(20);
         StorageStatusData storageStatusData;
         if (storageStatusData.Deserialize(buffer, (uint16_t) sizeof(buffer)))
         {
@@ -161,21 +155,23 @@ void Storage::Initialize()
                 LOG_DEBUG("Storage not initialized defaults values will be written");
                 HumidityData humidityData;
                 Write(humidityData);
-                TimeUtils::SleepInMilliseconds(1);
+                TimeUtils::SleepInMilliseconds(50);
                 TemperatureData temperatureData;
                 Write(temperatureData);
-                TimeUtils::SleepInMilliseconds(1);
+                TimeUtils::SleepInMilliseconds(50);
                 TimeInfoData timeInfoData;
                 timeInfoData.m_IncubatorCurrentTimestampInSeconds = static_cast<uint32_t>(TimeUtils::GetTimestampInMilliseconds() / 1000);
                 Write(timeInfoData);
-                TimeUtils::SleepInMilliseconds(1);
+                TimeUtils::SleepInMilliseconds(50);
                 
                 storageStatusData.m_bIsInitialized = true;
                 if (storageStatusData.Serialize(buffer, (uint16_t)sizeof(buffer)))
                 {
-                    s_Eeprom24C.Write(INITIAL_PAGE, PAGE_OFFSET, buffer, (uint16_t) sizeof(buffer));
-                    TimeUtils::SleepInMilliseconds(1);
-                    LOG_DEBUG("Storage initialized with defaults values");
+                    if (s_Eeprom24C.Write(INITIAL_PAGE, PAGE_OFFSET, buffer, (uint16_t) sizeof(buffer)))
+                    {
+                        LOG_DEBUG("Storage initialized with defaults values");
+                    }
+                    TimeUtils::SleepInMilliseconds(50);
                 }
             }
             else
@@ -193,6 +189,7 @@ void Storage::Reset()
     storageStatusData.m_bIsInitialized = false;
     storageStatusData.Serialize(buffer, (uint16_t)sizeof(buffer));
     s_Eeprom24C.Write(INITIAL_PAGE, PAGE_OFFSET, buffer, (uint16_t) sizeof(buffer));
+    TimeUtils::SleepInMilliseconds(50);
 }
 
 
