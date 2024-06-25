@@ -17,6 +17,7 @@ static constexpr const uint8_t GOTO_LINE_2_CMD = 0xC0;
 static constexpr const uint8_t TC1602_CHAR_LOWER_I = 0x00;
 static constexpr const uint8_t TC1602_CHAR_LOWER_U = 0x01;
 static constexpr const uint8_t TC1602_CHAR_LOWER_O = 0x02;
+static constexpr const uint8_t TC1602_CHAR_LOWER_G = 0x03;
 static constexpr const uint8_t TC1602_CHAR_DEGREE_SYMBOL = 0xDF;
 static constexpr const uint8_t TC1602_CHAR_ARROW_SYMBOL = 0x7E;
 
@@ -132,12 +133,15 @@ void TC1602Screen::SendData(uint8_t data)
         m_Lines[m_CursorCount] = (char16_t)0x00F6;
         break;
 
+    case TC1602_CHAR_LOWER_G:
+        m_Lines[m_CursorCount] = (char16_t)0x011F;
+        break;
+
     case TC1602_CHAR_DEGREE_SYMBOL:
         m_Lines[m_CursorCount] = (char16_t)0x00B0;
         break;
 
     case TC1602_CHAR_ARROW_SYMBOL:
-        // m_Lines[m_CursorCount] = (char16_t)0x2192;
         m_Lines[m_CursorCount] = (char16_t)0x2192;
         break;
     

@@ -28,15 +28,17 @@ void TC1602ResetWindowState::PrintSelectLine()
 {
     if (m_ScrollPosition == 1)
     {
-        LOG_DEBUG(" HAYIR    [EVET]");
-        m_Tc1602->Print(" HAYIR ");
-        m_Tc1602->Print("   [EVET]");
+        m_Tc1602->Print(" Hay");
+        m_Tc1602->Print(TC1602_CHAR_LOWER_I);
+        m_Tc1602->Print("r    [Evet]");
+        LOG_DEBUG(" Hayır    [Evet]");
     }
     else
     {
-        LOG_DEBUG("[HAYIR]    EVET ");
-        m_Tc1602->Print("[HAYIR]");
-        m_Tc1602->Print("    EVET ");
+        m_Tc1602->Print("[Hay");
+        m_Tc1602->Print(TC1602_CHAR_LOWER_I);
+        m_Tc1602->Print("r]    Evet ");
+        LOG_DEBUG("[Hayır]    Evet ");
     }
 }
 

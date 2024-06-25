@@ -1,13 +1,13 @@
-#ifndef _GUI_TC1602TEMPERATURESETWINDOWSTATE_H_
-#define _GUI_TC1602TEMPERATURESETWINDOWSTATE_H_
+#ifndef _GUI_TC1602HUMIDITYSETWINDOWSTATE_H_
+#define _GUI_TC1602HUMIDITYSETWINDOWSTATE_H_
 #include "ATC1602WindowState.h"
 namespace GUI
 {
-    class TC1602TemperatureSetWindowState : public ATC1602WindowState
+    class TC1602HumiditySetWindowState : public ATC1602WindowState
     {
     public:
-        TC1602TemperatureSetWindowState(TC1602 *tc1602);
-        ~TC1602TemperatureSetWindowState() = default;
+        TC1602HumiditySetWindowState(TC1602 *tc1602);
+        ~TC1602HumiditySetWindowState() = default;
         virtual void Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState) override;
         virtual void Refresh() override;
         virtual EnumTC1602WindowState GetNextWindowState() override;
@@ -26,4 +26,4 @@ namespace GUI
     };
 } // namespace GUI
 
-#endif // _GUI_TC1602TEMPERATURESETWINDOWSTATE_H_
+#endif // _GUI_TC1602HUMIDITYSETWINDOWSTATE_H_

@@ -1,13 +1,13 @@
-#include "Incubator/GUI/TC1602UI/Window/TC1602TemperatureSetWindowState.h"
+#include "Incubator/GUI/TC1602UI/Window/TC1602HumiditySetWindowState.h"
 #include "Incubator/Logger/Logger.h"
 
 using namespace GUI;
 
-TC1602TemperatureSetWindowState::TC1602TemperatureSetWindowState(TC1602 *tc1602)
-    : ATC1602WindowState{TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW, tc1602}, m_ScrollPosition { 0 }, m_IncubatorData { nullptr }, m_bIsInitial { true } { }
+TC1602HumiditySetWindowState::TC1602HumiditySetWindowState(TC1602 *tc1602)
+    : ATC1602WindowState{TC1602_WINDOW_STATE_HUMIDITY_SET_WINDOW, tc1602}, m_ScrollPosition { 0 }, m_IncubatorData { nullptr }, m_bIsInitial { true } { }
 
 
-void TC1602TemperatureSetWindowState::UpdateScrollPosition()
+void TC1602HumiditySetWindowState::UpdateScrollPosition()
 {
     if (m_ScrollPosition < MAX_SCROLL_POSITION && m_IncubatorData->m_bIsButtonDown)
     {
@@ -30,42 +30,42 @@ void TC1602TemperatureSetWindowState::UpdateScrollPosition()
     }
 }
 
-void TC1602TemperatureSetWindowState::PrintLine(uint8_t lineCount)
+void TC1602HumiditySetWindowState::PrintLine(uint8_t lineCount)
 {
     switch (lineCount)
     {
     case 0:
     	{
-            LOG_DEBUG_RAW("Sck. ayarla\n");
-            m_Tc1602->Print("Sck. ayarla");
+            LOG_DEBUG_RAW("Nem ayarla\n");
+            m_Tc1602->Print("Nem ayarla");
     	}
         break;
 
     case 1:
     	{
-            LOG_DEBUG_RAW("Sck maks ayarla\n");
-            m_Tc1602->Print("Sck maks ayarla");
+            LOG_DEBUG_RAW("Nem maks ayarla\n");
+            m_Tc1602->Print("Nem maks ayarla");
 		}
         break;
 
     case 2:
     	{
-            LOG_DEBUG_RAW("Sck min ayarla\n");
-            m_Tc1602->Print("Sck min ayarla");
+            LOG_DEBUG_RAW("Nem min ayarla\n");
+            m_Tc1602->Print("Nem min ayarla");
     	}
         break;
 
     case 3:
     	{
-            LOG_DEBUG_RAW("Sck maks2 ayarla\n");
-            m_Tc1602->Print("Sck maks2 ayarla");
+            LOG_DEBUG_RAW("Nem maks2 ayarla\n");
+            m_Tc1602->Print("Nem maks2 ayarla");
     	}
         break;
 
     case 4:
     	{
-            LOG_DEBUG_RAW("Sck min2 ayarla");
-            m_Tc1602->Print("Sck min2 ayarla");
+            LOG_DEBUG_RAW("Nem min2 ayarla\n");
+            m_Tc1602->Print("Nem min2 ayarla");
     	}
         break;
 
@@ -80,7 +80,7 @@ void TC1602TemperatureSetWindowState::PrintLine(uint8_t lineCount)
     }
 }
 
-void TC1602TemperatureSetWindowState::DetermineNextState()
+void TC1602HumiditySetWindowState::DetermineNextState()
 {
     if (m_IncubatorData->m_bIsButtonClicked == true)
     {
@@ -91,11 +91,11 @@ void TC1602TemperatureSetWindowState::DetermineNextState()
             break;
 
         case 1:
-            m_NextWindowState = TC1602_WINDOW_STATE_MAX_TEMPERATURE_ADJUSTING_VALUE;
+            m_NextWindowState = TC1602_WINDOW_STATE_MAX_HUMIDITY_ADJUSTING_VALUE;
             break;
 
         case 2:
-            m_NextWindowState = TC1602_WINDOW_STATE_MIN_TEMPERATURE_ADJUSTING_VALUE;
+            m_NextWindowState = TC1602_WINDOW_STATE_MIN_HUMIDITY_ADJUSTING_VALUE;
             break;
 
         default:
@@ -107,10 +107,10 @@ void TC1602TemperatureSetWindowState::DetermineNextState()
     }
 }
 
-void TC1602TemperatureSetWindowState::Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState)
+void TC1602HumiditySetWindowState::Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState)
 {
     m_IncubatorData = &incubatorData;
-    m_NextWindowState = TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW;
+    m_NextWindowState = TC1602_WINDOW_STATE_HUMIDITY_SET_WINDOW;
     if (m_bIsInitial)
     {
         InterruptedRefresh();
@@ -120,11 +120,11 @@ void TC1602TemperatureSetWindowState::Update(IncubatorData &incubatorData, EnumT
     DetermineNextState();
 }
 
-void TC1602TemperatureSetWindowState::Refresh()
+void TC1602HumiditySetWindowState::Refresh()
 {
 }
 
-void TC1602TemperatureSetWindowState::InterruptedRefresh()
+void TC1602HumiditySetWindowState::InterruptedRefresh()
 {
     if (m_IncubatorData != nullptr)
     {
@@ -147,7 +147,7 @@ void TC1602TemperatureSetWindowState::InterruptedRefresh()
 }
 
 
-EnumTC1602WindowState TC1602TemperatureSetWindowState::GetNextWindowState()
+EnumTC1602WindowState TC1602HumiditySetWindowState::GetNextWindowState()
 {
     return m_NextWindowState;
 }

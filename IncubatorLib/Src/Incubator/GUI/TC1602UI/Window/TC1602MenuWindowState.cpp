@@ -110,6 +110,10 @@ void TC1602MenuWindowState::DetermineNextState()
             m_NextWindowState = TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW;
             break;
 
+        case 3:
+            m_NextWindowState = TC1602_WINDOW_STATE_HUMIDITY_SET_WINDOW;
+            break;
+
         case 4:
             m_NextWindowState = TC1602_WINDOW_STATE_RESET;
             break;
@@ -132,6 +136,10 @@ void TC1602MenuWindowState::Update(IncubatorData &incubatorData, EnumTC1602Windo
     {
     case TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW:
         m_ScrollPosition = 1;
+        break;
+
+    case TC1602_WINDOW_STATE_HUMIDITY_SET_WINDOW:
+        m_ScrollPosition = 3;
         break;
 
     case TC1602_WINDOW_STATE_RESET:

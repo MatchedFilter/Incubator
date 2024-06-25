@@ -57,6 +57,7 @@ static void RegisterSpecialChars()
     constexpr uint8_t LOWER_I_OFFSET = 0;
     constexpr uint8_t LOWER_U_OFFSET = 8;
     constexpr uint8_t LOWER_O_OFFSET = 16;
+    constexpr uint8_t LOWER_G_OFFSET = 24;
     constexpr uint8_t SPECIAL_CHAR_BYTE_COUNT = 8;
 
     constexpr const uint8_t SPECIAL_CHAR_LOWER_I[SPECIAL_CHAR_BYTE_COUNT] = { 
@@ -69,6 +70,10 @@ static void RegisterSpecialChars()
 
     constexpr const uint8_t SPECIAL_CHAR_LOWER_O[SPECIAL_CHAR_BYTE_COUNT] = {
         0x00, 0x0A, 0x00 ,0x0E, 0x11, 0x11, 0x0E, 0x00
+    };
+
+    constexpr const uint8_t SPECIAL_CHAR_LOWER_G[SPECIAL_CHAR_BYTE_COUNT] = {
+        0x00, 0x0E, 0x00 ,0x0E, 0x0A, 0x0E, 0x02, 0x0E
     };
 
     Send(true, SPECIAL_CHAR_BASE_ADDRESS + LOWER_I_OFFSET);
@@ -87,6 +92,12 @@ static void RegisterSpecialChars()
     for (uint8_t i = 0; i < SPECIAL_CHAR_BYTE_COUNT; i++)
     {
         Send(false, SPECIAL_CHAR_LOWER_O[i]);
+    }
+
+    Send(true, SPECIAL_CHAR_BASE_ADDRESS + LOWER_G_OFFSET);
+    for (uint8_t i = 0; i < SPECIAL_CHAR_BYTE_COUNT; i++)
+    {
+        Send(false, SPECIAL_CHAR_LOWER_G[i]);
     }
 }
 

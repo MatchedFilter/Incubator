@@ -11,15 +11,25 @@ TC1602UIDevice::TC1602UIDevice() :
     m_TC1602MainWindowState { &m_Tc1602 },
     m_TC1602MenuWindowState { &m_Tc1602 },
     m_TC1602TemperatureSetWindowState { &m_Tc1602 },
+    m_TC1602HumiditySetWindowState { &m_Tc1602 },
+    m_TC1602MaxTemperatureAdjustingValueWindowState { &m_Tc1602 },
+    m_TC1602MinTemperatureAdjustingValueWindowState { &m_Tc1602 },
+    m_TC1602MaxHumidityAdjustingValueWindowState { &m_Tc1602 },
+    m_TC1602MinHumidityAdjustingValueWindowState { &m_Tc1602 },
     m_TC1602ResetWindowState { &m_Tc1602 },
     m_TC1602RefreshingTimerTaskHandler { &m_CurrentState},
     m_PreviousState { TC1602_WINDOW_STATE_MAIN_WINDOW }
 {
-    m_States[TC1602_WINDOW_STATE_ERROR_WINDOW]              = &m_TC1602ErrorWindowState;
-    m_States[TC1602_WINDOW_STATE_MAIN_WINDOW]               = &m_TC1602MainWindowState;
-    m_States[TC1602_WINDOW_STATE_MENU_WINDOW]               = &m_TC1602MenuWindowState;
-    m_States[TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW]    = &m_TC1602TemperatureSetWindowState;
-    m_States[TC1602_WINDOW_STATE_RESET]                     = &m_TC1602ResetWindowState;
+    m_States[TC1602_WINDOW_STATE_ERROR_WINDOW]                      = &m_TC1602ErrorWindowState;
+    m_States[TC1602_WINDOW_STATE_MAIN_WINDOW]                       = &m_TC1602MainWindowState;
+    m_States[TC1602_WINDOW_STATE_MENU_WINDOW]                       = &m_TC1602MenuWindowState;
+    m_States[TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW]            = &m_TC1602TemperatureSetWindowState;
+    m_States[TC1602_WINDOW_STATE_HUMIDITY_SET_WINDOW]               = &m_TC1602HumiditySetWindowState;
+    m_States[TC1602_WINDOW_STATE_MAX_TEMPERATURE_ADJUSTING_VALUE]   = &m_TC1602MaxTemperatureAdjustingValueWindowState;
+    m_States[TC1602_WINDOW_STATE_MIN_TEMPERATURE_ADJUSTING_VALUE]   = &m_TC1602MinTemperatureAdjustingValueWindowState;
+    m_States[TC1602_WINDOW_STATE_MAX_HUMIDITY_ADJUSTING_VALUE]      = &m_TC1602MaxHumidityAdjustingValueWindowState;
+    m_States[TC1602_WINDOW_STATE_MIN_HUMIDITY_ADJUSTING_VALUE]      = &m_TC1602MinHumidityAdjustingValueWindowState;
+    m_States[TC1602_WINDOW_STATE_RESET]                             = &m_TC1602ResetWindowState;
 
     m_CurrentState = m_States[TC1602_WINDOW_STATE_MAIN_WINDOW];
 }
