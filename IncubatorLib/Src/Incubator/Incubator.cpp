@@ -31,7 +31,6 @@ void Incubator::Initialize()
         LOG_DEBUG("    End: %d", m_IncubatorData.m_TemperatureEnd);
         LOG_DEBUG("TimeInfo:");
         LOG_DEBUG("    Current timestamp in seconds: %d", m_IncubatorData.m_CurrentTimestampInSeconds);
-        LOG_DEBUG("    Start timestamp in seconds: %d", m_IncubatorData.m_StartTimestampInSeconds);
         LOG_DEBUG("    Total day count: %d", m_IncubatorData.m_TotalIncubationDayCount);
         LOG_DEBUG("    Motor off day count: %d", m_IncubatorData.m_MotorOffDayCount);
         LOG_DEBUG("_______________________________________________");

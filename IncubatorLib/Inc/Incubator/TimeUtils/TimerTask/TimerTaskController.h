@@ -8,6 +8,7 @@ public:
     static void StartTask(TaskID taskID);
     static void StopTask(TaskID taskID);
     static void DeleteTask(TaskID taskID);
+    static void ResetAllTasks();
     static void Run();
     
 };

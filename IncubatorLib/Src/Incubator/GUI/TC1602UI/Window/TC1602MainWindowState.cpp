@@ -7,8 +7,6 @@ TC1602MainWindowState::TC1602MainWindowState(TC1602 *tc1602)
     : ATC1602WindowState{TC1602_WINDOW_STATE_MAIN_WINDOW, tc1602},
         m_ScrollPosition { 0 }, m_IncubatorData { nullptr }, m_bIsInitial { true } { }
 
-
-
 void TC1602MainWindowState::PrintLine(uint8_t lineCount)
 {
     switch (lineCount)
@@ -27,8 +25,16 @@ void TC1602MainWindowState::PrintLine(uint8_t lineCount)
                 m_Tc1602->Print("%%%d", m_IncubatorData->m_HumidityInPercentage);
     		    LOG_DEBUG_RAW("%%%d", m_IncubatorData->m_HumidityInPercentage);
             }
-    		m_Tc1602->Print(" / %%%d", m_IncubatorData->m_HumidityDesired);
-    		LOG_DEBUG_RAW(" / %%%d\n", m_IncubatorData->m_HumidityDesired);
+            if (m_IncubatorData->m_CurrentTimestampInSeconds > ((uint32_t)(m_IncubatorData->m_TotalIncubationDayCount - m_IncubatorData->m_MotorOffDayCount) * (uint32_t) 24 * (uint32_t) 3600))
+            {
+                m_Tc1602->Print(" / %%%d", m_IncubatorData->m_MotorsOffHumidityDesired);
+    		    LOG_DEBUG_RAW(" / %%%d\n", m_IncubatorData->m_MotorsOffHumidityDesired);
+            }
+            else
+            {
+                m_Tc1602->Print(" / %%%d", m_IncubatorData->m_HumidityDesired);
+    		    LOG_DEBUG_RAW(" / %%%d\n", m_IncubatorData->m_HumidityDesired);
+            }
     	}
         break;
 
@@ -44,16 +50,26 @@ void TC1602MainWindowState::PrintLine(uint8_t lineCount)
     		    m_Tc1602->Print("%02d.%01d", m_IncubatorData->m_TemperatureInDeciDegree / 10, m_IncubatorData->m_TemperatureInDeciDegree % 10);
     		    LOG_DEBUG_WITHOUT_ENDL("%02d.%01d", m_IncubatorData->m_TemperatureInDeciDegree / 10, m_IncubatorData->m_TemperatureInDeciDegree % 10);
             }
-        	m_Tc1602->Print(" / %02d.%01d ", m_IncubatorData->m_TemperatureDesired / 10, m_IncubatorData->m_TemperatureDesired % 10);
-        	m_Tc1602->Print(TC1602_CHAR_DEGREE_SYMBOL);
-			m_Tc1602->Print("C");
-    		LOG_DEBUG_RAW(" / %02d.%01d ºC\n", m_IncubatorData->m_TemperatureDesired / 10, m_IncubatorData->m_TemperatureDesired % 10);
+            if (m_IncubatorData->m_CurrentTimestampInSeconds > ((uint32_t)(m_IncubatorData->m_TotalIncubationDayCount - m_IncubatorData->m_MotorOffDayCount) * (uint32_t) 24 * (uint32_t) 3600))
+            {
+                m_Tc1602->Print(" / %02d.%01d ", m_IncubatorData->m_MotorsOffTemperatureDesired / 10, m_IncubatorData->m_MotorsOffTemperatureDesired % 10);
+        	    m_Tc1602->Print(TC1602_CHAR_DEGREE_SYMBOL);
+			    m_Tc1602->Print("C");
+    		    LOG_DEBUG_RAW(" / %02d.%01d ºC\n", m_IncubatorData->m_MotorsOffTemperatureDesired / 10, m_IncubatorData->m_MotorsOffTemperatureDesired % 10);
+            }
+            else
+            {
+        	    m_Tc1602->Print(" / %02d.%01d ", m_IncubatorData->m_TemperatureDesired / 10, m_IncubatorData->m_TemperatureDesired % 10);
+        	    m_Tc1602->Print(TC1602_CHAR_DEGREE_SYMBOL);
+			    m_Tc1602->Print("C");
+    		    LOG_DEBUG_RAW(" / %02d.%01d ºC\n", m_IncubatorData->m_TemperatureDesired / 10, m_IncubatorData->m_TemperatureDesired % 10);
+            }
 		}
         break;
 
     case 2:
     	{
-    		const uint8_t leftDayCount = (m_IncubatorData->m_CurrentTimestampInSeconds - m_IncubatorData->m_StartTimestampInSeconds) / 60 / 60 / 24;
+    		const uint8_t leftDayCount = m_IncubatorData->m_CurrentTimestampInSeconds  / 3600/ 24;
     		m_Tc1602->Print("%d / %d g", leftDayCount, m_IncubatorData->m_TotalIncubationDayCount);
     		m_Tc1602->Print(TC1602_CHAR_LOWER_U);
     		m_Tc1602->Print("n");

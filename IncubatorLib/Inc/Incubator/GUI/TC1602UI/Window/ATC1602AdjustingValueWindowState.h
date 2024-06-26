@@ -18,14 +18,14 @@ namespace GUI
         IncubatorData *m_IncubatorData;
         bool m_bIsInitial;
         uint8_t m_ScrollPosition;
-        int32_t m_Value;
+        int16_t m_Value;
         bool m_bIsInSaveScreen;
 
     protected:
         virtual void PrintCurrentValue() = 0;
         virtual void PrintAdjustingValue() = 0;
         virtual void WriteChanges() = 0;
-        virtual int32_t GetInitialValue() = 0;
+        virtual int16_t GetInitialValue() = 0;
         void PrintAreChangesSavedQuestion();
         void PrintYesNo();
         void UpdateScrollPosition();

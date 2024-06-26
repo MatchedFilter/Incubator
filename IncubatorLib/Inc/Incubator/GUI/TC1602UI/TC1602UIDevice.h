@@ -7,10 +7,10 @@
 #include "Window/TC1602MenuWindowState.h"
 #include "Window/TC1602TemperatureSetWindowState.h"
 #include "Window/TC1602HumiditySetWindowState.h"
-#include "Window/TC1602MaxTemperatureAdjustingValueWindowState.h"
-#include "Window/TC1602MinTemperatureAdjustingValueWindowState.h"
-#include "Window/TC1602MaxHumidityAdjustingValueWindowState.h"
-#include "Window/TC1602MinHumidityAdjustingValueWindowState.h"
+#include "Window/TC1602DaySetWindowState.h"
+#include "Window/TC1602TemperatureAdjustingValueWindowState.h"
+#include "Window/TC1602HumidityAdjustingValueWindowState.h"
+#include "Window/TC1602DayAdjustingValueWindowState.h"
 #include "Window/TC1602ResetWindowState.h"
 #include "TimerTasks/TC1602RefreshingTimerTaskHandler.h"
 
@@ -35,10 +35,18 @@ namespace GUI
         TC1602MenuWindowState m_TC1602MenuWindowState;
         TC1602TemperatureSetWindowState m_TC1602TemperatureSetWindowState;
         TC1602HumiditySetWindowState m_TC1602HumiditySetWindowState;
-        TC1602MaxTemperatureAdjustingValueWindowState m_TC1602MaxTemperatureAdjustingValueWindowState;
-        TC1602MinTemperatureAdjustingValueWindowState m_TC1602MinTemperatureAdjustingValueWindowState;
-        TC1602MaxHumidityAdjustingValueWindowState m_TC1602MaxHumidityAdjustingValueWindowState;
-        TC1602MinHumidityAdjustingValueWindowState m_TC1602MinHumidityAdjustingValueWindowState;
+        TC1602DaySetWindowState m_TC1602DaySetWindowState;
+        TC1602TemperatureAdjustingValueWindowState m_TC1602MaxTemperatureAdjustingValueWindowState;
+        TC1602TemperatureAdjustingValueWindowState m_TC1602MinTemperatureAdjustingValueWindowState;
+        TC1602TemperatureAdjustingValueWindowState m_TC1602MotorOffMaxTemperatureAdjustingValueWindowState;
+        TC1602TemperatureAdjustingValueWindowState m_TC1602MotorOffMinTemperatureAdjustingValueWindowState;
+        TC1602HumidityAdjustingValueWindowState m_TC1602MaxHumidityAdjustingValueWindowState;
+        TC1602HumidityAdjustingValueWindowState m_TC1602MinHumidityAdjustingValueWindowState;
+        TC1602HumidityAdjustingValueWindowState m_TC1602MotorOffMaxHumidityAdjustingValueWindowState;
+        TC1602HumidityAdjustingValueWindowState m_TC1602MotorOffMinHumidityAdjustingValueWindowState;
+        TC1602DayAdjustingValueWindowState m_TC1602TotalDayAdjustingValueWindowState;
+        TC1602DayAdjustingValueWindowState m_TC1602MotorOffDayAdjustingValueWindowState;
+        TC1602DayAdjustingValueWindowState m_TC1602CurrentDayAdjustingValueWindowState;
         TC1602ResetWindowState m_TC1602ResetWindowState;
 
         static constexpr const uint16_t TC1602_REFRESHING_TIME_IN_MILLISECOND = 3000;

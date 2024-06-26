@@ -3,6 +3,7 @@
 #include "Incubator/Storage/Storage.h"
 #include "Incubator/Utils/IncubatorUtils.h"
 #include "Incubator/TimeUtils/TimeUtils.h"
+#include "Incubator/TimeUtils/TimerTask/TimerTaskController.h"
 
 using namespace GUI;
 
@@ -71,6 +72,7 @@ void TC1602ResetWindowState::DetermineNextState()
         case 1:
             Storage::Reset();
             TimeUtils::SleepInMilliseconds(1);
+            TimeUtils::SetTimestampInMilliseconds(0);
             Storage::Initialize();
             TimeUtils::SleepInMilliseconds(3);
             m_Tc1602->ClearScreen();
@@ -78,6 +80,7 @@ void TC1602ResetWindowState::DetermineNextState()
             m_Tc1602->Print("Bekleyiniz");
             IncubatorUtils::ReadStorageData(*m_IncubatorData);
             TimeUtils::SleepInMilliseconds(100);
+            TimerTaskController::ResetAllTasks();
             m_NextWindowState = TC1602_WINDOW_STATE_MAIN_WINDOW;
             break;
 

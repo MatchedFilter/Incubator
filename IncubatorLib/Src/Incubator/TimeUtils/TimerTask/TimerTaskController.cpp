@@ -51,6 +51,21 @@ void TimerTaskController::DeleteTask(TaskID taskID)
     }
 }
 
+void TimerTaskController::ResetAllTasks()
+{
+    for (TaskID taskId = 0; taskId < TIMER_TASK_SIZE; taskId++)
+    {
+        if (s_TimerTasks[taskId].m_TaskId == taskId)
+        {
+            if (s_TimerTasks[taskId].m_bIsStarted)
+            {
+                s_TimerTasks[taskId].m_StartTimestampInMillisecond = TimeUtils::GetTimestampInMilliseconds();
+            }
+        }
+    }
+}
+
+
 void TimerTaskController::Run()
 {
     for (TaskID taskId = 0; taskId < TIMER_TASK_SIZE; taskId++)

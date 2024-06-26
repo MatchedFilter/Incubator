@@ -110,6 +110,10 @@ void TC1602MenuWindowState::DetermineNextState()
             m_NextWindowState = TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW;
             break;
 
+        case 2:
+            m_NextWindowState = TC1602_WINDOW_STATE_DAY_SET_WINDOW;
+            break;
+
         case 3:
             m_NextWindowState = TC1602_WINDOW_STATE_HUMIDITY_SET_WINDOW;
             break;
@@ -169,7 +173,7 @@ void TC1602MenuWindowState::InterruptedRefresh()
         if (m_ScrollPosition != 0)
         {
             m_Tc1602->Print(TC1602_CHAR_ARROW_SYMBOL);
-            LOG_DEBUG_WITHOUT_ENDL("->");
+            LOG_DEBUG_WITHOUT_ENDL("→");
         }
         else
         {

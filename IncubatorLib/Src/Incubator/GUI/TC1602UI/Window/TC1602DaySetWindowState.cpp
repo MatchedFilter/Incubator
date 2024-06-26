@@ -1,13 +1,13 @@
-#include "Incubator/GUI/TC1602UI/Window/TC1602TemperatureSetWindowState.h"
+#include "Incubator/GUI/TC1602UI/Window/TC1602DaySetWindowState.h"
 #include "Incubator/Logger/Logger.h"
 
 using namespace GUI;
 
-TC1602TemperatureSetWindowState::TC1602TemperatureSetWindowState(TC1602 *tc1602)
-    : ATC1602WindowState{TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW, tc1602}, m_ScrollPosition { 0 }, m_IncubatorData { nullptr }, m_bIsInitial { true } { }
+TC1602DaySetWindowState::TC1602DaySetWindowState(TC1602 *tc1602)
+    : ATC1602WindowState{TC1602_WINDOW_STATE_DAY_SET_WINDOW, tc1602}, m_ScrollPosition { 0 }, m_IncubatorData { nullptr }, m_bIsInitial { true } { }
 
 
-void TC1602TemperatureSetWindowState::UpdateScrollPosition()
+void TC1602DaySetWindowState::UpdateScrollPosition()
 {
     if (m_ScrollPosition < MAX_SCROLL_POSITION && m_IncubatorData->m_bIsButtonDown)
     {
@@ -30,42 +30,46 @@ void TC1602TemperatureSetWindowState::UpdateScrollPosition()
     }
 }
 
-void TC1602TemperatureSetWindowState::PrintLine(uint8_t lineCount)
+void TC1602DaySetWindowState::PrintLine(uint8_t lineCount)
 {
     switch (lineCount)
     {
     case 0:
     	{
-            LOG_DEBUG_RAW("Sck. ayarla\n");
-            m_Tc1602->Print("Sck. ayarla");
+            LOG_DEBUG_RAW("Gün ayarla\n");
+            m_Tc1602->Print('G');
+            m_Tc1602->Print(TC1602_CHAR_LOWER_U);
+            m_Tc1602->Print("n ayarla");
     	}
         break;
 
     case 1:
     	{
-            LOG_DEBUG_RAW("Sck maks\n");
-            m_Tc1602->Print("Sck maks");
+            LOG_DEBUG_RAW("Toplam gün\n");
+            m_Tc1602->Print("Toplam g");
+            m_Tc1602->Print(TC1602_CHAR_LOWER_U);
+            m_Tc1602->Print('n');
 		}
         break;
 
     case 2:
     	{
-            LOG_DEBUG_RAW("Sck min\n");
-            m_Tc1602->Print("Sck min");
+            LOG_DEBUG_RAW("Motorsuz gün\n");
+            m_Tc1602->Print("Motorsuz");
+            m_Tc1602->Print(" g");
+            m_Tc1602->Print(TC1602_CHAR_LOWER_U);
+            m_Tc1602->Print('n');
     	}
         break;
 
     case 3:
     	{
-            LOG_DEBUG_RAW("Sck son maks\n");
-            m_Tc1602->Print("Sck son maks");
-    	}
-        break;
-
-    case 4:
-    	{
-            LOG_DEBUG_RAW("Sck son min\n");
-            m_Tc1602->Print("Sck son min");
+            LOG_DEBUG_RAW("Güncel gün\n");
+            m_Tc1602->Print('G');
+            m_Tc1602->Print(TC1602_CHAR_LOWER_U);
+            m_Tc1602->Print("ncel g");
+            m_Tc1602->Print(TC1602_CHAR_LOWER_U);
+            m_Tc1602->Print('n');
     	}
         break;
 
@@ -80,7 +84,7 @@ void TC1602TemperatureSetWindowState::PrintLine(uint8_t lineCount)
     }
 }
 
-void TC1602TemperatureSetWindowState::DetermineNextState()
+void TC1602DaySetWindowState::DetermineNextState()
 {
     if (m_IncubatorData->m_bIsButtonClicked == true)
     {
@@ -91,19 +95,15 @@ void TC1602TemperatureSetWindowState::DetermineNextState()
             break;
 
         case 1:
-            m_NextWindowState = TC1602_WINDOW_STATE_MAX_TEMPERATURE_ADJUSTING;
+            m_NextWindowState = TC1602_WINDOW_STATE_TOTAL_DAY_ADJUSTING;
             break;
 
         case 2:
-            m_NextWindowState = TC1602_WINDOW_STATE_MIN_TEMPERATURE_ADJUSTING;
+            m_NextWindowState = TC1602_WINDOW_STATE_MOTOR_OFF_DAY_ADJUSTING;
             break;
 
         case 3:
-            m_NextWindowState = TC1602_WINDOW_STATE_MAX_MOTOR_OFF_TEMPERATURE_ADJUSTING;
-            break;
-
-        case 4:
-            m_NextWindowState = TC1602_WINDOW_STATE_MIN_MOTOR_OFF_TEMPERATURE_ADJUSTING;
+            m_NextWindowState = TC1602_WINDOW_STATE_CURRENT_DAY_ADJUSTING;
             break;
 
         default:
@@ -115,10 +115,10 @@ void TC1602TemperatureSetWindowState::DetermineNextState()
     }
 }
 
-void TC1602TemperatureSetWindowState::Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState)
+void TC1602DaySetWindowState::Update(IncubatorData &incubatorData, EnumTC1602WindowState previousState)
 {
     m_IncubatorData = &incubatorData;
-    m_NextWindowState = TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW;
+    m_NextWindowState = TC1602_WINDOW_STATE_DAY_SET_WINDOW;
     if (m_bIsInitial)
     {
         InterruptedRefresh();
@@ -128,11 +128,11 @@ void TC1602TemperatureSetWindowState::Update(IncubatorData &incubatorData, EnumT
     DetermineNextState();
 }
 
-void TC1602TemperatureSetWindowState::Refresh()
+void TC1602DaySetWindowState::Refresh()
 {
 }
 
-void TC1602TemperatureSetWindowState::InterruptedRefresh()
+void TC1602DaySetWindowState::InterruptedRefresh()
 {
     if (m_IncubatorData != nullptr)
     {
@@ -154,8 +154,7 @@ void TC1602TemperatureSetWindowState::InterruptedRefresh()
     }
 }
 
-
-EnumTC1602WindowState TC1602TemperatureSetWindowState::GetNextWindowState()
+EnumTC1602WindowState TC1602DaySetWindowState::GetNextWindowState()
 {
     return m_NextWindowState;
 }

@@ -10,26 +10,33 @@ void IncubatorUtils::ReadStorageData(IncubatorData &incubatorData)
     incubatorData.m_MemoryDeviceErrorState = ERROR_STATE_ERROR;
     if (Storage::Query(humidityData))
     {
-        TimeUtils::SleepInMilliseconds(20);
+        TimeUtils::SleepInMilliseconds(Storage::STORAGE_READ_TIME_IN_MILLISECOND);
     	if (Storage::Query(temperatureData))
     	{
-        	TimeUtils::SleepInMilliseconds(20);
+        	TimeUtils::SleepInMilliseconds(Storage::STORAGE_READ_TIME_IN_MILLISECOND);
     		if (Storage::Query(timeInfoData))
     		{
-        		TimeUtils::SleepInMilliseconds(20);
-    			incubatorData.m_MemoryDeviceErrorState    = ERROR_STATE_NO_ERROR;
-    		    incubatorData.m_HumidityStart             = humidityData.m_HumidityStartPercentage;
-    		    incubatorData.m_HumidityEnd               = humidityData.m_HumidityEndPercentage;
-    		    incubatorData.m_HumidityDesired           = (incubatorData.m_HumidityStart + incubatorData.m_HumidityEnd) / 2;
+        		TimeUtils::SleepInMilliseconds(Storage::STORAGE_READ_TIME_IN_MILLISECOND);
+    			incubatorData.m_MemoryDeviceErrorState    	= ERROR_STATE_NO_ERROR;
+    		    incubatorData.m_HumidityStart             	= humidityData.m_HumidityStartPercentage;
+    		    incubatorData.m_HumidityEnd               	= humidityData.m_HumidityEndPercentage;
+    		    incubatorData.m_HumidityDesired           	= (incubatorData.m_HumidityStart + incubatorData.m_HumidityEnd) / 2;
 
-    		    incubatorData.m_TemperatureStart          = temperatureData.m_TemperatureStartInDeciDegrees;
-    		    incubatorData.m_TemperatureEnd            = temperatureData.m_TemperatureEndInDeciDegrees;
-    		    incubatorData.m_TemperatureDesired        = (incubatorData.m_TemperatureStart + incubatorData.m_TemperatureEnd) / 2;
+				incubatorData.m_MotorsOffHumidityStart    	= humidityData.m_MotorsOffHumidityStartPercentage;
+				incubatorData.m_MotorsOffHumidityEnd      	= humidityData.m_MotorsOffHumidityEndPercentage;
+    		    incubatorData.m_MotorsOffHumidityDesired  	= (incubatorData.m_MotorsOffHumidityStart + incubatorData.m_MotorsOffHumidityEnd) / 2;
 
-    		    incubatorData.m_StartTimestampInSeconds   = timeInfoData.m_IncbutorStartTimestampInSeconds;
-    		    incubatorData.m_CurrentTimestampInSeconds = timeInfoData.m_IncubatorCurrentTimestampInSeconds;
-    		    incubatorData.m_TotalIncubationDayCount   = timeInfoData.m_TotalDayCount;
-    		    incubatorData.m_MotorOffDayCount          = timeInfoData.m_MotorOffDayCount;
+    		    incubatorData.m_TemperatureStart          	= temperatureData.m_TemperatureStartInDeciDegrees;
+    		    incubatorData.m_TemperatureEnd            	= temperatureData.m_TemperatureEndInDeciDegrees;
+    		    incubatorData.m_TemperatureDesired        	= (incubatorData.m_TemperatureStart + incubatorData.m_TemperatureEnd) / 2;
+
+				incubatorData.m_MotorsOffTemperatureStart 	= temperatureData.m_MotorsOffTemperatureStartInDeciDegrees;
+				incubatorData.m_MotorsOffTemperatureEnd   	= temperatureData.m_MotorsOffTemperatureEndInDeciDegrees;
+				incubatorData.m_MotorsOffTemperatureDesired	= (incubatorData.m_MotorsOffTemperatureStart + incubatorData.m_MotorsOffTemperatureEnd) / 2;
+
+    		    incubatorData.m_CurrentTimestampInSeconds 	= timeInfoData.m_IncubatorCurrentTimestampInSeconds;
+    		    incubatorData.m_TotalIncubationDayCount   	= timeInfoData.m_TotalDayCount;
+    		    incubatorData.m_MotorOffDayCount          	= timeInfoData.m_MotorOffDayCount;
     		}
     	}
     }
