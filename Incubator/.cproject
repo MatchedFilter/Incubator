@@ -60,6 +60,7 @@
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
 									<listOptionValue builtIn="false" value="STM32F103xB"/>
 									<listOptionValue builtIn="false" value="_cplusplus"/>
+									<listOptionValue builtIn="false" value="INCUBATOR_SOFTWARE_VERSION=&quot;1.0.0&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths.1460986082" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="../Core/Inc"/>
@@ -73,6 +74,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/JoystickLib/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/EEPROM24CLib/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorLib/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorControllerLib/Inc}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.1240646608" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
 							</tool>
@@ -86,6 +88,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/JoystickLib/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/EEPROM24CLib/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorLib/Debug}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorControllerLib/Debug}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.libraries.2129370329" name="Libraries (-l)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.libraries" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="IncubatorLib"/>
@@ -94,6 +97,7 @@
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="JoystickLib"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="NTCLib"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="TC1602Lib"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="IncubatorControllerLib"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="true" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.otherflags.1788284984" name="Other flags" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.otherflags" valueType="stringList"/>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input.562103731" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input">
@@ -173,6 +177,7 @@
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
 									<listOptionValue builtIn="false" value="STM32F103xB"/>
 									<listOptionValue builtIn="false" value="_cplusplus"/>
+									<listOptionValue builtIn="false" value="INCUBATOR_SOFTWARE_VERSION=&quot;1.0.0&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths.1690781676" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="../Core/Inc"/>
@@ -185,6 +190,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NTCLib/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/JoystickLib/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/EEPROM24CLib/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorControllerLib/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorLib/Inc}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.305731645" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
@@ -199,6 +205,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/JoystickLib/Release}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/EEPROM24CLib/Release}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorLib/Release}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IncubatorControllerLib/Release}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.libraries.281814862" name="Libraries (-l)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.libraries" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="IncubatorLib"/>
@@ -207,6 +214,7 @@
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="JoystickLib"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="NTCLib"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="TC1602Lib"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="IncubatorControllerLib"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="true" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.otherflags.1275813443" name="Other flags" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.otherflags" valueType="stringList"/>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input.908413691" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input">

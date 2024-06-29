@@ -195,6 +195,39 @@ bool _read_from_i2c_memory(uint16_t deviceAddres, uint16_t memoryAddress, uint8_
 	return b_result;
 }
 
+void _set_heater_pin_as_high()
+{
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
+}
+
+void _set_heater_pin_as_low()
+{
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
+}
+
+void _set_heater_pwm(uint8_t dutyCycle)
+{
+	// TODO: Will be used if pid controller is used
+}
+
+void _set_humidity_generator_pin_as_high()
+{
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
+}
+
+void _set_humidity_generator_pin_as_low()
+{
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+}
+
+void _set_humidity_generator_pwm(uint8_t dutyCycle)
+{
+	// TODO: Will be used if pid controller is used
+}
+
+
+
+
 #ifdef _cplusplus
 }
 #endif // _cplusplus

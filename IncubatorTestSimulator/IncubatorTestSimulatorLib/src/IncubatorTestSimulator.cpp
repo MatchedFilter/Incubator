@@ -4,18 +4,14 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include "Utils/IncubatorTestSimulatorUtils.h"
 
 using namespace ITS;
 
 IncubatorTestSimulator::IncubatorTestSimulator() : 
     m_Window { nullptr },
     m_Renderer { nullptr },
-    m_SimulatorStartTimestampInMillisecond { -1 },
-    m_UpKeyPressed { false },
-    m_DownKeyPressed { false },
-    m_RightKeyPressed { false },
-    m_LeftKeyPressed { false },
-    m_OKeyState { 0 }
+    m_SimulatorStartTimestampInMillisecond { -1 }
 {
 }
 
@@ -45,16 +41,13 @@ void IncubatorTestSimulator::SendCommandToTC1602(uint8_t command)
 
 bool IncubatorTestSimulator::GetHumidityPercentageAndTemperatureInCelcius(uint8_t &humidityPercentage, uint8_t &temperatureInCelcius)
 {
-    // TODO: Will be implemented
-    humidityPercentage = 60;
-    temperatureInCelcius = 34;
+    m_DHT11TestComponent.GetHumidityPercentageAndTemperature(humidityPercentage, temperatureInCelcius);
     return true;
 }
 
 bool IncubatorTestSimulator::GetTemperatureInCelcius(double &temperatureInCelcius)
 {
-    // TODO: Will be implemented
-    temperatureInCelcius = 34.5;
+    temperatureInCelcius = m_NTCTestComponent.GetTemperature();
     return true;
 }
 
@@ -78,11 +71,11 @@ void IncubatorTestSimulator::Initialize()
         exit(127);
     }
 
-    m_Window = SDL_CreateWindow("Inbuator Test Simulator",
+    m_Window = SDL_CreateWindow("Incubator Test Simulator",
         100,
         100,
         1024,
-        480,
+        640,
         SDL_WINDOW_SHOWN);
 
     m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED);
@@ -109,19 +102,47 @@ void IncubatorTestSimulator::Initialize()
         std::cerr << "Unable to initialize JoystickButton" << std::endl;
         exit(127);
     }
+    if (!m_DHT11TestComponent.Initialize(m_Renderer, 30, 300))
+    {
+        std::cerr << "Unable to initialize DHT11TestComponent" << std::endl;
+        exit(127); 
+    }
+    if (!m_NTCTestComponent.Initialize(m_Renderer, 230, 300))
+    {
+        std::cerr << "Unable to initialize NTCTestComponent" << std::endl;
+        exit(127); 
+    }
+    if (!m_HumidityGeneratorTestComponent.Initialize(m_Renderer, 430, 300, 86, 128, "resources/images/Humidity_Generator.png"))
+    {
+        std::cerr << "Unable to initialize HumidityGeneratorTestComponent" << std::endl;
+        exit(127);
+    }
+    if (!m_CarbonFiberHeaterTestComponent.Initialize(m_Renderer, 630, 300, 128, 64, "resources/images/Carbonfiber_Heater.png"))
+    {
+        std::cerr << "Unable to initialize CarbonFiberHeaterTestComponent" << std::endl;
+        exit(127);
+    }
+    IncubatorTestSimulatorUtils::Initialize();
+
 }
 
 void IncubatorTestSimulator::HandleEvents(SDL_Event &event)
 {
     m_JoystickButton.HandleEvents(event);
+    m_DHT11TestComponent.HandleEvents(event);
+    m_NTCTestComponent.HandleEvents(event);
 }
 
 void IncubatorTestSimulator::Run()
 {
-    SDL_SetRenderDrawColor(m_Renderer, 0x20, 0x20, 0x20, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(m_Renderer);
     m_TC1602Screen.Run();
     m_JoystickButton.Run();
+    m_DHT11TestComponent.Run();
+    m_NTCTestComponent.Run();
+    m_HumidityGeneratorTestComponent.Run();
+    m_CarbonFiberHeaterTestComponent.Run();
+    SDL_SetRenderDrawColor(m_Renderer, 0x20, 0x20, 0x20, SDL_ALPHA_OPAQUE);
     SDL_RenderPresent(m_Renderer);
 }
 

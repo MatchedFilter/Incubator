@@ -7,8 +7,9 @@
 
 using namespace GUI;
 
-TC1602ResetWindowState::TC1602ResetWindowState(TC1602 *tc1602)
-    : ATC1602WindowState{TC1602_WINDOW_STATE_RESET, tc1602}, m_ScrollPosition { 0 }, m_IncubatorData { nullptr }, m_bIsInitial { true } { }
+TC1602ResetWindowState::TC1602ResetWindowState(TC1602 *tc1602, TC1602MenuWindowState *menuWindowState)
+    : ATC1602WindowState{TC1602_WINDOW_STATE_RESET, tc1602}, m_ScrollPosition { 0 },
+        m_IncubatorData { nullptr }, m_bIsInitial { true }, m_MenuWindowState { menuWindowState} { }
 
 
 void TC1602ResetWindowState::PrintResetQuestion()
@@ -81,6 +82,7 @@ void TC1602ResetWindowState::DetermineNextState()
             IncubatorUtils::ReadStorageData(*m_IncubatorData);
             TimeUtils::SleepInMilliseconds(100);
             TimerTaskController::ResetAllTasks();
+            m_MenuWindowState->m_ScrollPosition = 0;
             m_NextWindowState = TC1602_WINDOW_STATE_MAIN_WINDOW;
             break;
 

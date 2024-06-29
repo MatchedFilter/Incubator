@@ -11,6 +11,7 @@
 #include "Window/TC1602TemperatureAdjustingValueWindowState.h"
 #include "Window/TC1602HumidityAdjustingValueWindowState.h"
 #include "Window/TC1602DayAdjustingValueWindowState.h"
+#include "Window/TC1602VersionWindowState.h"
 #include "Window/TC1602ResetWindowState.h"
 #include "TimerTasks/TC1602RefreshingTimerTaskHandler.h"
 
@@ -19,7 +20,7 @@ namespace GUI
     class TC1602UIDevice : public IUIDevice
     {
     public:
-        TC1602UIDevice();
+        TC1602UIDevice(const char *incubatorVersion);
         ~TC1602UIDevice() = default;
         virtual void Initialize() override;
         virtual void Update(IncubatorData &incubatorData) override;
@@ -47,6 +48,7 @@ namespace GUI
         TC1602DayAdjustingValueWindowState m_TC1602TotalDayAdjustingValueWindowState;
         TC1602DayAdjustingValueWindowState m_TC1602MotorOffDayAdjustingValueWindowState;
         TC1602DayAdjustingValueWindowState m_TC1602CurrentDayAdjustingValueWindowState;
+        TC1602VersionWindowState m_TC1602VersionWindowState;
         TC1602ResetWindowState m_TC1602ResetWindowState;
 
         static constexpr const uint16_t TC1602_REFRESHING_TIME_IN_MILLISECOND = 3000;

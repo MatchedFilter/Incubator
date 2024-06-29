@@ -13,7 +13,7 @@ namespace GUI
         virtual EnumTC1602WindowState GetNextWindowState() override;
 
     private:
-        static constexpr uint8_t MAX_SCROLL_POSITION = 4;
+        static constexpr uint8_t MAX_SCROLL_POSITION = 5;
         uint8_t m_ScrollPosition;
         IncubatorData *m_IncubatorData;
         bool m_bIsInitial;
@@ -23,6 +23,7 @@ namespace GUI
         void PrintLine(uint8_t lineCount);
         void DetermineNextState();
         void InterruptedRefresh();
+        friend class TC1602ResetWindowState;
     };
 } // namespace GUI
 

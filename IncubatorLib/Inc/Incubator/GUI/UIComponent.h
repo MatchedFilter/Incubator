@@ -8,7 +8,7 @@ namespace GUI
     class UIComponent
     {
     public:
-        UIComponent();
+        UIComponent(const char* incubatorVersion);
         ~UIComponent() = default;
         void Initialize();
         void Update(IncubatorData &incubatorData);

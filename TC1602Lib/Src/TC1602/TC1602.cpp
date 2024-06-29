@@ -10,6 +10,9 @@ using namespace GUI;
 constexpr int32_t HIGH = 1;
 constexpr int32_t LOW = 0;
 
+constexpr int32_t _2LINES_4_BIT_MODE_CMD = 0x28;
+constexpr int32_t _1LINE_4_BIT_MODE_CMD = 0x20;
+
 static void Send(bool bIsCommand, uint8_t data)
 {
     constexpr int32_t ENABLE_LOW_TO_HIGH_TIME_DURATION_IN_MICROSECONDS = 20;
@@ -103,7 +106,6 @@ static void RegisterSpecialChars()
 
 void TC1602::Initialize()
 {
-    constexpr int32_t _2LINES_4_BIT_MODE_CMD = 0x28;
     constexpr int32_t AUTO_CURSOR_SHIFT_TO_RIGHT_CMD = 0x06;
     Send(true, _2LINES_4_BIT_MODE_CMD);
     DisplayOn();
@@ -117,6 +119,18 @@ void TC1602::ClearScreen()
 {
     constexpr int32_t CLEAR_SCREEN_CMD = 0x01;
     Send(true, CLEAR_SCREEN_CMD);
+}
+
+void TC1602::ShiftLeft()
+{
+    constexpr const uint8_t SHIFT_SCREEN_LEFT_CMD = 0x18;
+    Send(true, SHIFT_SCREEN_LEFT_CMD);
+}
+
+void TC1602::ShiftRight()
+{
+    constexpr const uint8_t SHIFT_SCREEN_LEFT_CMD = 0x1C;
+    Send(true, SHIFT_SCREEN_LEFT_CMD);
 }
 
 void TC1602::Print(const char *format, ...)

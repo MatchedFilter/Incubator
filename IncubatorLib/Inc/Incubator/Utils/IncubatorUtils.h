@@ -5,5 +5,6 @@ class IncubatorUtils
 {
 public:
     static void ReadStorageData(IncubatorData &incubatorData);
+    static bool IsInMotorsOffTime(const IncubatorData &incubatorData);
 };
 #endif // _INCUBATORUTILS_H_

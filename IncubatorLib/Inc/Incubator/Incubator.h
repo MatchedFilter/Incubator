@@ -8,11 +8,12 @@
 #include "TimerTasks/IncubatorSecondPeriodicTimerTaskHandler.h"
 #include "TimerTasks/IncubatorTemperatureReadingTimerTaskHandler.h"
 #include "TimerTasks/IncubatorStorageUpdatingTimerTaskHandler.h"
+#include "IncubatorController/IncubatorController.h"
 
 class Incubator
 {
 public:
-    Incubator();
+    Incubator(const char* incubatorVersion);
     ~Incubator() = default;
     void Initialize();
     void Run();
@@ -25,12 +26,15 @@ private:
     IncubatorSecondPeriodicTimerTaskHandler m_IncubatorSecondPeriodicTimerTaskHandler;
     IncubatorTemperatureReadingTimerTaskHandler m_IncubatorTemperatureReadingTimerTaskHandler;
     IncubatorStorageUpdatingTimerTaskHandler m_IncubatorStorageUpdatingTimerTaskHandler;
+    IC::IncubatorController m_IncubatorController;
 
 private:
     Sensors::JoystickData m_LastJoystickData;
 
 private:
     void GetJoystickInfo();
+    void AdjustTemperature();
+    void AdjustHumidity();
 };
 
 

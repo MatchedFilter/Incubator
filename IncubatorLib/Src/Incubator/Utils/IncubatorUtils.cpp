@@ -41,3 +41,15 @@ void IncubatorUtils::ReadStorageData(IncubatorData &incubatorData)
     	}
     }
 }
+
+
+bool IncubatorUtils::IsInMotorsOffTime(const IncubatorData &incubatorData)
+{
+	constexpr const uint32_t SECOND_OVER_DAY = 24 * 3600;
+	bool bResult = false;
+	if (incubatorData.m_CurrentTimestampInSeconds > (incubatorData.m_TotalIncubationDayCount - incubatorData.m_MotorOffDayCount) * SECOND_OVER_DAY)
+	{
+		bResult = true;
+	}
+	return bResult;
+}

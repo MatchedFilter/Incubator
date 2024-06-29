@@ -78,6 +78,13 @@ void TC1602MenuWindowState::PrintLine(uint8_t lineCount)
 
     case 4:
     	{
+            m_Tc1602->Print("Versiyon");
+            LOG_DEBUG_RAW("Versiyon\n");
+    	}
+        break;
+
+    case 5:
+    	{
             m_Tc1602->Print('S');
             m_Tc1602->Print(TC1602_CHAR_LOWER_I);
             m_Tc1602->Print('f');
@@ -87,7 +94,7 @@ void TC1602MenuWindowState::PrintLine(uint8_t lineCount)
     	}
         break;
 
-    case 5:
+    case 6:
         LOG_DEBUG_RAW("\n");
         break;
     
@@ -103,8 +110,13 @@ void TC1602MenuWindowState::DetermineNextState()
         switch (m_ScrollPosition)
         {
         case 0:
-            m_NextWindowState = TC1602_WINDOW_STATE_MAIN_WINDOW;
+        {
+            if (m_IncubatorData->m_bIsButtonRight != true)
+            {
+                m_NextWindowState = TC1602_WINDOW_STATE_MAIN_WINDOW;
+            }
             break;
+        }
 
         case 1:
             m_NextWindowState = TC1602_WINDOW_STATE_TEMPERATURE_SET_WINDOW;
@@ -119,13 +131,17 @@ void TC1602MenuWindowState::DetermineNextState()
             break;
 
         case 4:
+            m_NextWindowState = TC1602_WINDOW_STATE_VERSION;
+            break;
+
+        case 5:
             m_NextWindowState = TC1602_WINDOW_STATE_RESET;
             break;
 
         default:
+            m_ScrollPosition = 0;
             break;
         }
-        m_ScrollPosition = 0;
         m_bIsInitial = true;
     }
 }
@@ -146,8 +162,12 @@ void TC1602MenuWindowState::Update(IncubatorData &incubatorData, EnumTC1602Windo
         m_ScrollPosition = 3;
         break;
 
-    case TC1602_WINDOW_STATE_RESET:
+    case TC1602_WINDOW_STATE_VERSION:
         m_ScrollPosition = 4;
+        break;
+
+    case TC1602_WINDOW_STATE_RESET:
+        m_ScrollPosition = 5;
         break;
     
     default:

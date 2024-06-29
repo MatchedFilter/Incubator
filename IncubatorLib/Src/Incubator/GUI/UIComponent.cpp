@@ -2,11 +2,14 @@
 
 using namespace GUI;
 
-UIComponent::UIComponent()
+UIComponent::UIComponent(const char* incubatorVersion) : 
+#ifdef TC1602_LCD_USED
+    m_TC1602UIDevice { incubatorVersion }
+#endif // TC1602_LCD_USED
 {
-// #ifdef TC1602_USED
+#ifdef TC1602_LCD_USED
     m_Device = &m_TC1602UIDevice;
-// #endif // TC1602_USED
+#endif // TC1602_LCD_USED
 }
 
 void UIComponent::Initialize()

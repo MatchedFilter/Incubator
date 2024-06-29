@@ -4,7 +4,8 @@
 #include "Incubator/Utils/IncubatorUtils.h"
 #include "Incubator/Logger/Logger.h"
 
-Incubator::Incubator() :
+Incubator::Incubator(const char* incubatorVersion) :
+    m_UIComponent { incubatorVersion },
     m_IncubatorSecondPeriodicTimerTaskHandler { &m_IncubatorData },
     m_IncubatorTemperatureReadingTimerTaskHandler { &m_IncubatorData },
     m_IncubatorStorageUpdatingTimerTaskHandler { &m_IncubatorData }
@@ -34,13 +35,6 @@ void Incubator::Initialize()
         LOG_DEBUG("    Total day count: %d", m_IncubatorData.m_TotalIncubationDayCount);
         LOG_DEBUG("    Motor off day count: %d", m_IncubatorData.m_MotorOffDayCount);
         LOG_DEBUG("_______________________________________________");
-        // Storage::Reset();
-        // LOG_DEBUG("Storage Reset, Waiting For 120 sec");
-        // for (int32_t i = 120; i >= 0; i--)
-        // {
-        // 	LOG_DEBUG("%d",i);
-        //     TimeUtils::SleepInMilliseconds(1000);
-        // }
 
         TimeUtils::SetTimestampInMilliseconds(static_cast<int64_t>(m_IncubatorData.m_CurrentTimestampInSeconds) * 1000);
     }
@@ -104,16 +98,64 @@ void Incubator::GetJoystickInfo()
     else
     {
     }
-    // LOG_DEBUG("right: %d, up: %d, press: %d", joystickData.m_RightPosition, joystickData.m_UpPosition, joystickData.m_PressState);
     m_LastJoystickData.m_PressState = joystickData.m_PressState;
     m_LastJoystickData.m_RightPosition = joystickData.m_RightPosition;
     m_LastJoystickData.m_UpPosition = joystickData.m_UpPosition;
     
 }
 
+void Incubator::AdjustTemperature()
+{
+    int32_t temperatureHighThreshold = m_IncubatorData.m_TemperatureEnd;
+    int32_t temperatureLowThreshold = m_IncubatorData.m_TemperatureStart;
+    if (IncubatorUtils::IsInMotorsOffTime(m_IncubatorData))
+    {
+        temperatureHighThreshold = m_IncubatorData.m_MotorsOffTemperatureEnd;
+        temperatureLowThreshold = m_IncubatorData.m_MotorsOffTemperatureStart;
+    }
+    if (m_IncubatorData.m_TemperatureInDeciDegree > temperatureHighThreshold)
+    {
+        m_IncubatorController.TurnOffHeater();
+    }
+    else if (m_IncubatorData.m_TemperatureInDeciDegree < temperatureLowThreshold)
+    {
+        m_IncubatorController.TurnOnHeater();
+    }
+    else
+    {
+    }
+}
+
+void Incubator::AdjustHumidity()
+{
+
+    int32_t humidityHighThreshold = m_IncubatorData.m_HumidityEnd;
+    int32_t humidityLowThreshold = m_IncubatorData.m_HumidityStart;
+    if (IncubatorUtils::IsInMotorsOffTime(m_IncubatorData))
+    {
+        humidityHighThreshold = m_IncubatorData.m_MotorsOffHumidityEnd;
+        humidityLowThreshold = m_IncubatorData.m_MotorsOffHumidityStart;
+    }
+
+    if (m_IncubatorData.m_HumidityInPercentage > humidityHighThreshold)
+    {
+        m_IncubatorController.TurnOffHumidityGenerator();
+    }
+    else if (m_IncubatorData.m_HumidityInPercentage < humidityLowThreshold)
+    {
+        m_IncubatorController.TurnOnHumidityGenerator();
+    }
+    else
+    {
+    }
+}
+
+
 void Incubator::Run()
 {
     GetJoystickInfo();
     m_UIComponent.Update(m_IncubatorData);
+    AdjustTemperature();
+    AdjustHumidity();
     TimerTaskController::Run();
 }

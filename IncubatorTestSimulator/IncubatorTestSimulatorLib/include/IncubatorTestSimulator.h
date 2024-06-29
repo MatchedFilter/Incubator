@@ -3,6 +3,9 @@
 #include <SDL2/SDL.h>
 #include "TC1602/TC1602Screen.h"
 #include "JoystickButton/JoystickButton.h"
+#include "DHT11/DHT11TestComponent.h"
+#include "NTC/NTCTestComponent.h"
+#include "Output/OutputSensorTestComponent.h"
 
 /**
  * @brief Incubator Test Simulator
@@ -21,6 +24,10 @@ namespace ITS
         bool GetHumidityPercentageAndTemperatureInCelcius(uint8_t &humidityPercentage, uint8_t &temperatureInCelcius);
         bool GetTemperatureInCelcius(double &temperatureInCelcius);
         void GetJoystickData(bool &upKeyPressed, bool &downKeyPressed, bool &rightKeyPressed, bool &leftKeyPressed);
+        inline void TurnOnHumidityGenerator() { m_HumidityGeneratorTestComponent.TurnOn(); }
+        inline void TurnOffHumidityGenerator() { m_HumidityGeneratorTestComponent.TurnOff();}
+        inline void TurnOnHeater() { m_CarbonFiberHeaterTestComponent.TurnOn(); }
+        inline void TurnOffHeater() { m_CarbonFiberHeaterTestComponent.TurnOff();}
         uint8_t GetJoystickButtonState();
 
         void Initialize();
@@ -33,11 +40,10 @@ namespace ITS
         TC1602Screen m_TC1602Screen;
         JoystickButton m_JoystickButton;
         int64_t m_SimulatorStartTimestampInMillisecond;
-        bool m_UpKeyPressed;
-        bool m_DownKeyPressed;
-        bool m_RightKeyPressed;
-        bool m_LeftKeyPressed;
-        uint8_t m_OKeyState;
+        DHT11TestComponent m_DHT11TestComponent;
+        NTCTestComponent m_NTCTestComponent;
+        OutputSensorTestComponent m_HumidityGeneratorTestComponent;
+        OutputSensorTestComponent m_CarbonFiberHeaterTestComponent;
 
     private:
         void InitializeTime();

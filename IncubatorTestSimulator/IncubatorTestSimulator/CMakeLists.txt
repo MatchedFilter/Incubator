@@ -14,5 +14,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} PUBLIC IncubatorTestSimulatorLib)
 
+target_compile_definitions(${PROJECT_NAME} PUBLIC INCUBATOR_SOFTWARE_VERSION="1.0.0")
+
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_SOURCE_DIR}/IncubatorTestSimulator/bin/${CMAKE_BUILD_TYPE})
 

@@ -23,6 +23,8 @@ namespace GUI
         ~TC1602() = default;
         void Initialize();
         void ClearScreen();
+        void ShiftLeft();
+        void ShiftRight();
         void Print(const char *format, ...);
         void Print(uint8_t ch);
         void DisplayOff();

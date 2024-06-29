@@ -82,12 +82,18 @@ void TC1602TemperatureSetWindowState::PrintLine(uint8_t lineCount)
 
 void TC1602TemperatureSetWindowState::DetermineNextState()
 {
-    if (m_IncubatorData->m_bIsButtonClicked == true)
+    if (m_IncubatorData->m_bIsButtonClicked == true || m_IncubatorData->m_bIsButtonRight == true)
     {
         switch (m_ScrollPosition)
         {
         case 0:
-            m_NextWindowState = TC1602_WINDOW_STATE_MENU_WINDOW;
+        {
+            if (m_IncubatorData->m_bIsButtonRight != true)
+            {
+                m_NextWindowState = TC1602_WINDOW_STATE_MENU_WINDOW;
+
+            }
+        }
             break;
 
         case 1:

@@ -466,4 +466,33 @@ extern "C"
         }
         return bResult;
     }
+
+    void _set_heater_pin_as_high()
+    {
+        g_IncubatorTestSimulator.TurnOnHeater();
+    }
+
+    void _set_heater_pin_as_low()
+    {
+        g_IncubatorTestSimulator.TurnOffHeater();
+    }
+
+    void _set_heater_pwm(uint8_t dutyCycle)
+    {
+    }
+
+    void _set_humidity_generator_pin_as_high()
+    {
+        g_IncubatorTestSimulator.TurnOnHumidityGenerator();
+    }
+
+    void _set_humidity_generator_pin_as_low()
+    {
+        g_IncubatorTestSimulator.TurnOffHumidityGenerator();
+    }
+
+    void _set_humidity_generator_pwm(uint8_t dutyCycle)
+    {
+    }
+    
 }

@@ -21,6 +21,9 @@ namespace Sensors
         const double m_CoeffB;
         const double m_CoeffC;
         const int32_t m_PullDownResistor;
+
+    private:
+        bool GetDetailedTemperatureFromMap(uint32_t resistance, double &temperatureInCelcius);
     };
 } // namespace Sensors
 

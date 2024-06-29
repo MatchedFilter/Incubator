@@ -4,7 +4,7 @@
 
 using namespace GUI;
 
-TC1602UIDevice::TC1602UIDevice() : 
+TC1602UIDevice::TC1602UIDevice(const char *incubatorVersion) : 
     m_CurrentState { nullptr },
     m_States { 0 },
     m_TC1602ErrorWindowState { &m_Tc1602 }, 
@@ -24,7 +24,8 @@ TC1602UIDevice::TC1602UIDevice() :
     m_TC1602TotalDayAdjustingValueWindowState { &m_Tc1602, TC1602_WINDOW_STATE_TOTAL_DAY_ADJUSTING },
     m_TC1602MotorOffDayAdjustingValueWindowState { &m_Tc1602, TC1602_WINDOW_STATE_MOTOR_OFF_DAY_ADJUSTING },
     m_TC1602CurrentDayAdjustingValueWindowState { &m_Tc1602, TC1602_WINDOW_STATE_CURRENT_DAY_ADJUSTING },
-    m_TC1602ResetWindowState { &m_Tc1602 },
+    m_TC1602VersionWindowState { &m_Tc1602, incubatorVersion },
+    m_TC1602ResetWindowState { &m_Tc1602, &m_TC1602MenuWindowState},
     m_TC1602RefreshingTimerTaskHandler { &m_CurrentState},
     m_PreviousState { TC1602_WINDOW_STATE_MAIN_WINDOW }
 {
@@ -45,6 +46,7 @@ TC1602UIDevice::TC1602UIDevice() :
     m_States[TC1602_WINDOW_STATE_TOTAL_DAY_ADJUSTING]                   = &m_TC1602TotalDayAdjustingValueWindowState;
     m_States[TC1602_WINDOW_STATE_MOTOR_OFF_DAY_ADJUSTING]               = &m_TC1602MotorOffDayAdjustingValueWindowState;
     m_States[TC1602_WINDOW_STATE_CURRENT_DAY_ADJUSTING]                 = &m_TC1602CurrentDayAdjustingValueWindowState;
+    m_States[TC1602_WINDOW_STATE_VERSION]                               = &m_TC1602VersionWindowState;
     m_States[TC1602_WINDOW_STATE_RESET]                                 = &m_TC1602ResetWindowState;
 
     m_CurrentState = m_States[TC1602_WINDOW_STATE_MAIN_WINDOW];
